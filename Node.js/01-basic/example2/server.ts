@@ -6,9 +6,18 @@ const port = 4000;
 
 const textInput = fs.readFileSync("./txt/input.txt", "utf-8");
 // console.log(textInput);
+app.use(express.static('public'));
+app.use(express.json());
 
-app.get("/", (req:express.Request, res:express.Response) => {
+app.get("/text", (req:express.Request, res:express.Response) => {
     res.send(textInput)
+})
+
+
+app.post("/find-text", (req:express.Request, res:express.Response) => {
+    const {userName} = req.body;
+    console.log(userName)
+    res.send(`${userName} would like to know: ${textInput}`)
 })
 
 app.listen(port, () => {
