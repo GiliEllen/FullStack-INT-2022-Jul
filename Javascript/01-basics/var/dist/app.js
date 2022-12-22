@@ -74,13 +74,3 @@ function handleCalc(event) {
     var salary = input.value;
     console.log(salary);
 }
-function calculate() {
-    var salary = 7000;
-    var tax = 0;
-    if (salary < 6450) { //10%
-        tax = salary * 0.1;
-    }
-    else if (6451 < salary && salary < 9270) {
-        var sum = salary - 6451;
-    }
-}
