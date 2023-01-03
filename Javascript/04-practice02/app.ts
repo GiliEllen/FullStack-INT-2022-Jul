@@ -1,7 +1,7 @@
 console.log(`connected`);
 
 const boxArray = document.querySelectorAll(".box");
-console.log(boxArray)
+const wrapper = document.querySelector(".wrapper") as HTMLDivElement;
 
 
 function getRandomNumber(min:number, max:number) {
@@ -15,8 +15,8 @@ function getRandomNumber(min:number, max:number) {
 function positionBox() {
     try {
         boxArray.forEach((box:HTMLDivElement) => {
-            box.style.left = `${getRandomNumber(0,600)}px`
-            box.style.top = `${getRandomNumber(0,600)}px`
+            box.style.left = `${getRandomNumber(0,800)}px`
+            box.style.top = `${getRandomNumber(0,800)}px`
         })
     } catch (error) {
         console.error(error)
@@ -30,3 +30,21 @@ function startGame() {
         console.error(error)
     }
 }
+
+// setInterval(() => {
+//     positionBox();
+// }, 2000)
+
+wrapper.addEventListener("click", (event) => {
+    try {
+        if(event.target.id !== "wrapper") {
+            const box = event.target;
+            box.style.display = "none";
+        } else {
+            console.log("id is null")
+        }
+        
+    } catch (error) {
+        console.error(error)
+    }
+})

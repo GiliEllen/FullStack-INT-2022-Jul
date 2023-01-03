@@ -6,8 +6,8 @@ body {
 
 .wrapper {
   position: relative;
-  width: 700px;
-  height: 700px;
+  width: 900px;
+  height: 900px;
   background-color: #f4b4f4;
 }
 .wrapper .box {
@@ -16,5 +16,5 @@ body {
   background-color: aqua;
   border: 1px solid black;
   position: absolute;
-  transition: all 1s ease-in-out;
+  transition: all 2s ease-in-out;
 }

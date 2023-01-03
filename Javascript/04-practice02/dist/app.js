@@ -1,6 +1,6 @@
 console.log("connected");
 var boxArray = document.querySelectorAll(".box");
-console.log(boxArray);
+var wrapper = document.querySelector(".wrapper");
 function getRandomNumber(min, max) {
     try {
         return Math.random() * (max - min) + min;
@@ -12,8 +12,8 @@ function getRandomNumber(min, max) {
 function positionBox() {
     try {
         boxArray.forEach(function (box) {
-            box.style.left = getRandomNumber(0, 600) + "px";
-            box.style.top = getRandomNumber(0, 600) + "px";
+            box.style.left = getRandomNumber(0, 800) + "px";
+            box.style.top = getRandomNumber(0, 800) + "px";
         });
     }
     catch (error) {
@@ -28,3 +28,20 @@ function startGame() {
         console.error(error);
     }
 }
+// setInterval(() => {
+//     positionBox();
+// }, 2000)
+wrapper.addEventListener("click", function (event) {
+    try {
+        if (event.target.id !== "wrapper") {
+            var box = event.target;
+            box.style.display = "none";
+        }
+        else {
+            console.log("id is null");
+        }
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
