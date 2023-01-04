@@ -1,0 +1,21 @@
+body {
+    margin: 0%;
+}
+
+.wrapper {
+    background-color: brown;
+    display: grid;
+    height: 900px;
+    width: 900px;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "1 2 3", "4 5 6", "7 8 9";
+
+    .mole {
+        height: 100px;
+        width: 100px;
+        background-color: black;
+        align-self: center;
+        margin: auto;
+    }
+}
