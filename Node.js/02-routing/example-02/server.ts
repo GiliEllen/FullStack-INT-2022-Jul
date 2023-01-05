@@ -21,7 +21,7 @@ app.get("/api/user1", (req, res) => {
   try {
     setTimeout(() => {
       res.send({ user: users[0] });
-    }, 500);
+    }, 2000);
   } catch (error) {
     res.send({ error: error.message });
   }
