@@ -1,9 +1,13 @@
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 3000;
+import express from "express";                     // importing the express library so it my be used be us.
+const app = express();                             // insering express into the app variable so it my be used. 
+const port = process.env.PORT || 3000;             // creating a port variable and insering it's information from ENV file or a spesific number
 
-app.use(express.json()); // to get body from client (body = data from client)
-app.use(express.static("public"));
+app.use(express.json());                           // to get body from client (body = data from client)
+app.use(express.static("public"));                 // the server will recognize that it's static file will be found under the public folder
+                                                   //opening the server to listen on your specified port
+
+
+
 
 interface User {
   name: string;
