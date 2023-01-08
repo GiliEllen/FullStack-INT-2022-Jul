@@ -1,13 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express")); // importing the express library so it my be used be us.
-const app = express_1.default(); // insering express into the app variable so it my be used. 
-const port = process.env.PORT || 3000; // creating a port variable and insering it's information from ENV file or a spesific number
-app.use(express_1.default.json()); // to get body from client (body = data from client)
-app.use(express_1.default.static("public")); // the server will recognize that it's static file will be found under the public folder
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3000;
+app.use(express.json()); // to get body from client (body = data from client)
+app.use(express.static("public"));
 let users = [
     { name: "Moshe", age: 23, id: "yjnbcsgs" },
     { name: "Miriam", age: 33, id: "sgfdgdfg" },
@@ -17,7 +12,7 @@ app.get("/api/user1", (req, res) => {
     try {
         setTimeout(() => {
             res.send({ user: users[0] });
-        }, 500);
+        }, 2000);
     }
     catch (error) {
         res.send({ error: error.message });
