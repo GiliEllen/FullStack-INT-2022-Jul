@@ -38,10 +38,9 @@ app.get("/api/users", (req,res) => {
 })
 
 app.get("/api/images", (req, res) => {
-    setTimeout(() => {
+    console.log(req.body)
         const imageSrc = images[getRandomNumber()];
-        res.send({imageSrc: imageSrc})
-    })
+        res.send({imageSrc: imageSrc, myName: "gili", friend: "ruth"})
 })
 
 app.listen(port, () =>{
