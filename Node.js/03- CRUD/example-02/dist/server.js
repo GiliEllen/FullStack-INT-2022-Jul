@@ -145,6 +145,7 @@ const tours = [
         startDates: ["2021-12-16,10:00", "2022-01-16,10:00", "2022-12-12,10:00"],
     },
 ];
+// get // post //delete //patch //put
 app.get("/api/v1/tours", (req, res) => {
     try {
         res.send({ success: true, tours });
@@ -164,6 +165,45 @@ app.get("/api/v1/tours/:id", (req, res) => {
         res.status(500).send({ success: false, error });
     }
 });
+app.post("/api/v1/tours", (req, res) => {
+    try {
+        const { tourName, price } = req.body;
+        tours.push({ id: guid(), name: tourName, price });
+        res.send({ success: true, tours });
+    }
+    catch (error) {
+        res.status(500).send({ success: false, error });
+    }
+});
+app.delete("/api/v1/tours/:id", (req, res) => {
+    try {
+        const { id } = req.params;
+        const toursArray = tours.filter((el) => el.id != id);
+        res.send({ success: true, toursArray });
+    }
+    catch (error) {
+        res.status(500).send({ success: false, error });
+    }
+});
 app.listen(PORT, () => {
     console.log(`server is active on port : ${PORT}`);
 });
+let guid = () => {
+    let s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    return (s4() +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        s4() +
+        s4());
+};

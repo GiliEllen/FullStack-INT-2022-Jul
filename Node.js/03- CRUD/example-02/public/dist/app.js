@@ -85,3 +85,50 @@ function handleGetTourByID(event) {
         });
     });
 }
+function handleAddTour(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var tourName, price, data, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    event.preventDefault();
+                    tourName = event.target.elements.tourName.value;
+                    price = event.target.elements.price.value;
+                    return [4 /*yield*/, axios.post("/api/v1/tours", { tourName: tourName, price: price })];
+                case 1:
+                    data = (_a.sent()).data;
+                    console.log(data);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    console.error(error_3);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function handleDeleteTourByID(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var tourId, data, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    event.preventDefault();
+                    tourId = event.target.elements.tourId.value;
+                    return [4 /*yield*/, axios["delete"]("/api/v1/tours/" + tourId)];
+                case 1:
+                    data = (_a.sent()).data;
+                    console.log(data);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    console.error(error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}

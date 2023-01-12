@@ -1,0 +1,11 @@
+create a server with user array;
+users: first name, last name, age, ID, address X 5
+and a client with forms.
+
+1. get all users and write them on DOM
+2. get user by ID
+3. add new user
+4. delete user by name
+5. update user information
+
+with css!!

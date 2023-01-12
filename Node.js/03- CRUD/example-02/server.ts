@@ -180,6 +180,8 @@ interface Tour {
     },
   ];
 
+  // get // post //delete //patch //put
+
   app.get("/api/v1/tours", (req, res) => {
     try {
         res.send({success: true, tours})
@@ -200,8 +202,51 @@ interface Tour {
         res.status(500).send({success: false, error})
     }
   })
+
+  app.post("/api/v1/tours", (req, res) => {
+    try {
+      const {tourName, price} = req.body;
+      tours.push({id: guid(), name: tourName, price})
+      res.send({success: true, tours})
+    } catch (error) {
+      res.status(500).send({success:false, error})
+    }
+  })
+
+  app.delete("/api/v1/tours/:id", (req, res) => {
+    try {
+      const {id} = req.params;
+      const toursArray = tours.filter((el) => el.id != id);
+      res.send({success: true, toursArray})
+    } catch (error) {
+      res.status(500).send({success:false, error})
+    }
+  })
+
   
 
 app.listen(PORT, () => {
     console.log(`server is active on port : ${PORT}`)
 })
+
+let guid = () => {
+  let s4 = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  };
+  return (
+    s4() +
+    s4() +
+    "-" +
+    s4() +
+    "-" +
+    s4() +
+    "-" +
+    s4() +
+    "-" +
+    s4() +
+    s4() +
+    s4()
+  );
+};

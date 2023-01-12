@@ -20,6 +20,20 @@
         <input type="text" id="tourId">
         <button type="submit">GET</button>
     </form>
+
+    <h1>ADD NEW TOUR</h1>
+    <form onsubmit="handleAddTour(event)">
+        <input class="tourName" type="text" id="tourName" placeholder="name">
+        <input type="number" id="price" placeholder="price">
+        <button type="submit">ADD TOUR</button>
+    </form>
+
+    <h1>DELETE TOUR BY ID</h1>
+    <form onsubmit="handleDeleteTourByID(event)">
+        <input type="text" id="tourId">
+        <button type="submit">DELETE</button>
+    </form>
+    
 </body>
 <script src="./dist/app.js"></script>
 </html>
