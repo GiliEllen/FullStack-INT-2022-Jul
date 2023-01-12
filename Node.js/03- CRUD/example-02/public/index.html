@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natours</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.js"
+        integrity="sha512-rozBdNtS7jw9BlC76YF1FQGjz17qQ0J/Vu9ZCFIW374sEy4EZRbRcUZa2RU/MZ90X2mnLU56F75VfdToGV0RiA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <h1>GET ALL TOURS</h1>
+    <button onclick="handleGetAllTours()">GET ALL TOURS</button>
+
+    <div id="root"></div>
+
+    <h1>GET TOUR BY ID</h1>
+    <form onsubmit="handleGetTourByID(event)">
+        <input type="text" id="tourId">
+        <button type="submit">GET</button>
+    </form>
+</body>
+<script src="./dist/app.js"></script>
+</html>
