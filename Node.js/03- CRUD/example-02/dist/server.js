@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const app = express_1.default();
 const PORT = 3000;
 app.use(express_1.default.json());
-app.use(express_1.default.static('public'));
+app.use(express_1.default.static("public"));
 const tours = [
     {
         id: 0,
@@ -158,7 +158,7 @@ app.get("/api/v1/tours/:id", (req, res) => {
     try {
         const { id } = req.params;
         console.log(id);
-        const tour = tours.find(element => element.id == id);
+        const tour = tours.find((elements) => elements.id == id);
         res.send({ success: true, tour });
     }
     catch (error) {

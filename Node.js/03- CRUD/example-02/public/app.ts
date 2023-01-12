@@ -30,12 +30,12 @@ async function handleGetTourByID(event) {
 async function handleAddTour(event) {
   try {
     event.preventDefault();
-    
+
     const tourName = event.target.elements.tourName.value;
     const price = event.target.elements.price.value;
 
-    const {data} = await axios.post("/api/v1/tours", {tourName, price});
-    console.log(data)
+    const { data } = await axios.post("/api/v1/tours", { tourName, price });
+    console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -46,9 +46,9 @@ async function handleDeleteTourByID(event) {
     event.preventDefault();
     const tourId = event.target.elements.tourId.value;
 
-    const {data} = await axios.delete(`/api/v1/tours/${tourId}`);
-    console.log(data)
+    const { data } = await axios.delete(`/api/v1/tours/${tourId}`);
+    console.log(data);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
