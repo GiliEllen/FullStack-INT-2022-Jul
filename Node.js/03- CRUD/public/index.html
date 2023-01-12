@@ -13,13 +13,32 @@
 </head>
 
 <body>
+    <h1>GET ALL</h1>
     <button onclick="handleGetAllTours()">GET ALL TOURS</button>
+    <h1>GET 1 = PARAMS</h1>
     <form onsubmit="getATourByID(event)">
         <input type="number" id="tourId">
         <button type="submit">GET THIS TOUR</button>
     </form>
+    <h1>ADD = POST</h1>
     <div class="root">
+        <form onsubmit="addTour(event)">
+            <input type="number" id="price" placeholder="price">
+            <input type="text" id="tourName" placeholder="Name">
+            <button type="submit">GET THIS TOUR</button>
+        </form>
     </div>
+    <h1>DELET = PARAMS</h1>
+    <form onsubmit="deleteATourByID(event)">
+        <input type="number" id="tourId">
+        <button type="submit">DELETE THIS TOUR</button>
+    </form>
+    <h1>UPDATE = PATCH params</h1>
+    <form onsubmit="updateTour(event)">
+        <input type="number" id="tourId" placeholder="tour id">
+        <input type="text" id="newName" placeholder="new Name">
+        <button type="submit">UPDATE THIS TOUR</button>
+    </form>
 </body>
 <script src="./dist/app.js"></script>
 
