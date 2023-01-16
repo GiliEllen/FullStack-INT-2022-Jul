@@ -1,6 +1,10 @@
-import {users} from "./userDB"
+import { users } from "./userDB";
 
-const books = [{id: 1, bookName: "harry potter"}, {id: 2, bookName: "percy jackson"}, {id: 3, bookName: "matilda"}]
+const books = [
+  { id: 1, bookName: "harry potter" },
+  { id: 2, bookName: "percy jackson" },
+  { id: 3, bookName: "matilda" },
+];
 
 export function getAllUsers(req, res) {
   try {
@@ -34,16 +38,15 @@ export function addUser(req, res) {
 
 export function getUserBook(req, res) {
   try {
-    const {userId, bookId} = req.params;
+    console.log(req.params)
+    const { userId, bookId } = req.params;
     const user = users.find((element) => element.id == userId);
     const book = books.find((element) => element.id == bookId);
 
-    res.send({user, book, success: true})
+    res.send({ user, book, success: true });
   } catch (error) {
-    res.status(500).send({error: error.message})
+    res.status(500).send({ error: error.message });
   }
 }
 
-export function deleteUser(req, res) {
-  
-}
+export function deleteUser(req, res) {}

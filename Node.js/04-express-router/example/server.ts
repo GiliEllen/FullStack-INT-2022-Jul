@@ -6,10 +6,10 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static("public"));
 
-import usersRoutes from "./users/usersRoutes";
+import usersRoutes from "./API/users/usersRoutes";
 app.use("/api/users", usersRoutes);
 
-import booksRoutes from "./books/booksRoutes";
+import booksRoutes from "./API/books/booksRoutes";
 app.use("/api/v1/books", booksRoutes)
 
 // app.get("/api/v1/books", (req,res) => {
