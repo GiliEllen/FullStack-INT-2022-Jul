@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.getUserBook = exports.addUser = exports.getUserById = exports.getAllUsers = void 0;
+exports.deleteUser = exports.getUserBook = exports.addUser = exports.getUserById = exports.getAllUsers = void 0;
 var users = [
     {
         id: 1,
@@ -257,3 +257,6 @@ function getUserBook(req, res) {
     }
 }
 exports.getUserBook = getUserBook;
+function deleteUser(req, res) {
+}
+exports.deleteUser = deleteUser;

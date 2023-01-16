@@ -51,9 +51,7 @@ app.delete("/api/v1/tours/:id", (req, res) => {
     res.send({ success: true, tours });
   });
 
-app.listen(port, () => {
-  console.log(`Server listening on port: ${port}`);
-});
+
 
 app.get('/', (req, res) => {
     res.send('root')
@@ -62,6 +60,15 @@ app.get('/', (req, res) => {
   app.get('/about', (req, res) => {
     res.send('about')
   })
+
+  app.get('/about/books', (req, res) => {
+    res.send('about')
+  })
+
+    app.get('/about/books/:id', (req, res) => {
+    res.send('about')
+  })
+
 
   app.get('/random.text', (req, res) => {
     res.send('random.text')
@@ -116,3 +123,7 @@ let guid = () => {
     s4()
   );
 };
+
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port}`);
+});

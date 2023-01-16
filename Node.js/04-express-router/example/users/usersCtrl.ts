@@ -256,3 +256,7 @@ export function getUserBook(req, res) {
     res.status(500).send({error: error.message})
   }
 }
+
+export function deleteUser(req, res) {
+  
+}

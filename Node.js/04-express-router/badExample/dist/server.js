@@ -45,13 +45,16 @@ app.patch("/api/v1/tours/:id", function (req, res) {
     });
     res.send({ success: true, tours: tours });
 });
-app.listen(port, function () {
-    console.log("Server listening on port: " + port);
-});
 app.get('/', function (req, res) {
     res.send('root');
 });
 app.get('/about', function (req, res) {
+    res.send('about');
+});
+app.get('/about/books', function (req, res) {
+    res.send('about');
+});
+app.get('/about/books', function (req, res) {
     res.send('about');
 });
 app.get('/random.text', function (req, res) {
@@ -97,3 +100,6 @@ var guid = function () {
         s4() +
         s4());
 };
+app.listen(port, function () {
+    console.log("Server listening on port: " + port);
+});

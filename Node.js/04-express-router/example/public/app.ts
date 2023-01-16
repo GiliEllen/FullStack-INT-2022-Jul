@@ -46,3 +46,13 @@ async function handleGetUserBook(event) {
     console.error(error);
   }
 }
+
+async function handleGetAllBooks() {
+  try {
+    //@ts-ignore
+    const { data } = await axios.get("/api/v1/books");
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
