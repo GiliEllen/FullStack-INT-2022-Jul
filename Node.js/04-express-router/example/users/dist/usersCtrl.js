@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.addUser = exports.getUserById = exports.getAllUsers = void 0;
+exports.getUserBook = exports.addUser = exports.getUserById = exports.getAllUsers = void 0;
 var users = [
     {
         id: 1,
@@ -211,6 +211,7 @@ var users = [
         userAgent: "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.17 Safari/537.11"
     },
 ];
+var books = [{ id: 1, bookName: "harry potter" }, { id: 2, bookName: "percy jackson" }, { id: 3, bookName: "matilda" }];
 function getAllUsers(req, res) {
     try {
         res.send({ success: true, users: users });
@@ -244,3 +245,15 @@ function addUser(req, res) {
     }
 }
 exports.addUser = addUser;
+function getUserBook(req, res) {
+    try {
+        var _a = req.params, userId_1 = _a.userId, bookId_1 = _a.bookId;
+        var user = users.find(function (element) { return element.id == userId_1; });
+        var book = books.find(function (element) { return element.id == bookId_1; });
+        res.send({ user: user, book: book, success: true });
+    }
+    catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+}
+exports.getUserBook = getUserBook;
