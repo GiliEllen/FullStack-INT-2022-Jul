@@ -9,7 +9,7 @@ app.use(express.static("public"));
 
 mongoose.set('strictQuery', true)
 
-const mongo_uri = "mongodb+srv://Gili-Admin:vVRkGyPKCvDxPnK1@cluster0.7mbcr.mongodb.net/?retryWrites=true&w=majority"
+const mongo_uri = "mongodb+srv://Gili-Admin:vVRkGyPKCvDxPnK1@cluster0.7mbcr.mongodb.net/JulyDBTest?retryWrites=true&w=majority"
 
 mongoose.connect(mongo_uri).then(res => {
     console.log("Connected to DB")

@@ -26,7 +26,6 @@ export async function login(req, res) {
     const userDB = await UserModel.findOne({ email, password });
     if (!userDB) throw new Error("User name or password do not match");
 
-    //send cookie
     res.send({ ok: true });
   } catch (error: any) {
     res.status(500).send({ error: error.message });

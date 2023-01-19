@@ -56,3 +56,14 @@ async function getUserById(event) {
     
   }
 }
+
+async function handleUpdateUser(event) {
+  try {
+    const password = event.target.elements.password.value;
+    const userId = event.target.elements.userId.value;
+    const {data} = await axios.patch(`/api/users/${userId}`, {password});
+    console.log(data)
+  } catch (error) {
+    console.error(error)
+  }
+}
