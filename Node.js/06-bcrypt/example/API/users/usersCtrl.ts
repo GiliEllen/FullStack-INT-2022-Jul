@@ -1,22 +1,37 @@
+import express from "express";
 import mongoose from "mongoose";
-import UserModel from "./userModel";
+import UserModel, {UserValidation} from "./userModel";
+import bcrypt from 'bcrypt';
+import { decode } from 'punycode';
+const saltRounds = 10;
 
-export async function register(req, res) {
-  try {
-    const { email, password } = req.body;
+export async function register(req:express.Request, res:express.Response) {
+    try {
+        const { email, username, password, rePassword } = req.body;
+        if (!email || !username || !password || !rePassword) throw new Error("Couldn't get all fields from req.body");
 
-    // const userDB = await UserModel.create({ email, password });
-    // if(!userDB) throw new Error("no user was created")
+        const { error } = UserValidation.validate({ email, username, password, repeatPassword: rePassword });
+        if (error) throw error;
 
-    const userDB = new UserModel({ email, password });
-    await userDB.save();
-    if (!userDB) throw new Error("no user was created");
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hash = bcrypt.hashSync(password, salt);
 
-    res.send({ ok: true });
-  } catch (error: any) {
-    res.status(500).send({ error: error.message });
-  }
+        const userDB = new UserModel({ email, username, password: hash });
+        await userDB.save();
+
+        //sending cookie
+
+        if (userDB) {
+            res.send({ register: true, userDB });
+        } else {
+            res.send({ register: false });
+        }
+
+    } catch (error) {
+        res.send({ error: error.message });
+    }
 }
+
 
 export async function login(req, res) {
   try {
