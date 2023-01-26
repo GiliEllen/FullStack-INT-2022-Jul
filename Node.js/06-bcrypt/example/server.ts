@@ -3,11 +3,12 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 const app = express();
-const PORT = 3000;
+// const PORT = 3000;
 
 dotenv.config();
 
 const mongodb_uri = process.env.MONGO_URI;
+const PORT = process.env.PORT;
 
 // future implementation
 mongoose.set('strictQuery', true);
@@ -24,7 +25,6 @@ app.use(express.static("public"));
 
 import usersRoutes from "./API/users/usersRoutes";
 app.use("/api/users", usersRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`server is active on port : ${PORT}`);
