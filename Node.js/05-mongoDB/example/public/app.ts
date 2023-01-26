@@ -1,6 +1,7 @@
 async function handleLogin(ev: any) {
   try {
     ev.preventDefault();
+    console.log(ev)
     const password = ev.target.elements.password.value;
     const email = ev.target.elements.email.value;
     console.log(password, email);
@@ -27,11 +28,13 @@ async function handleRegister(ev: any) {
     //@ts-ignore
     const { data } = await axios.post("/api/users/register", {
       password,
-      email,
+      email
     });
+    const {error} = data;
+    if (error) throw error
     console.log(data);
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
 }
 
@@ -61,9 +64,12 @@ async function handleUpdateUser(event) {
   try {
     const password = event.target.elements.password.value;
     const userId = event.target.elements.userId.value;
+    //@ts-ignore
     const {data} = await axios.patch(`/api/users/${userId}`, {password});
     console.log(data)
   } catch (error) {
     console.error(error)
   }
 }
+
+// "/api/users/register"
