@@ -145,6 +145,7 @@ function handleUpdateUser(event) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
+                    event.preventDefault();
                     password = event.target.elements.password.value;
                     userId = event.target.elements.userId.value;
                     return [4 /*yield*/, axios.patch("/api/users/" + userId, { password: password })];

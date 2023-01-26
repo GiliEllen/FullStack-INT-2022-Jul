@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     requierd: [true, "user must have email"]
   },
-  password: String,
+  password: String
 });
 
 const UserModel = mongoose.model("users", UserSchema);

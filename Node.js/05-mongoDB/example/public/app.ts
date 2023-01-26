@@ -62,6 +62,7 @@ async function getUserById(event) {
 
 async function handleUpdateUser(event) {
   try {
+    event.preventDefault()
     const password = event.target.elements.password.value;
     const userId = event.target.elements.userId.value;
     //@ts-ignore
@@ -71,5 +72,6 @@ async function handleUpdateUser(event) {
     console.error(error)
   }
 }
+
 
 // "/api/users/register"
