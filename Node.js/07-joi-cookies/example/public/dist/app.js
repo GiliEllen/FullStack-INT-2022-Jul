@@ -66,7 +66,7 @@ function handleLogin(ev) {
 }
 function handleRegister(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var password, email, data, register, error_2;
+        var password, email, data, register, error, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -82,7 +82,9 @@ function handleRegister(ev) {
                 case 1:
                     data = (_a.sent()).data;
                     console.log(data);
-                    register = data.register;
+                    register = data.register, error = data.error;
+                    if (error)
+                        throw error;
                     if (register)
                         window.location.href = "./home.html";
                     return [3 /*break*/, 3];
@@ -118,17 +120,19 @@ function getUserFromCookie() {
         });
     });
 }
-function handlegetAllUsers() {
+function handleCheckIfUserIsconnected() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, error_4;
+        var data, userDB, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios.get("/api/users")];
+                    return [4 /*yield*/, axios.get("/api/users/get-user-by-cookie")];
                 case 1:
                     data = (_a.sent()).data;
-                    console.log(data);
+                    userDB = data.userDB;
+                    if (userDB)
+                        window.location.href = "./home.html";
                     return [3 /*break*/, 3];
                 case 2:
                     error_4 = _a.sent();
@@ -139,9 +143,53 @@ function handlegetAllUsers() {
         });
     });
 }
+function handleLogout() {
+    return __awaiter(this, void 0, void 0, function () {
+        var data, logout, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, axios.get("/api/users/logout")];
+                case 1:
+                    data = (_a.sent()).data;
+                    logout = data.logout;
+                    if (logout)
+                        window.location.href = "./index.html";
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_5 = _a.sent();
+                    console.error(error_5);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function handlegetAllUsers() {
+    return __awaiter(this, void 0, void 0, function () {
+        var data, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, axios.get("/api/users")];
+                case 1:
+                    data = (_a.sent()).data;
+                    console.log(data);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_6 = _a.sent();
+                    console.error(error_6);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function getUserById(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var userId, data, error_5;
+        var userId, data, error_7;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -154,7 +202,7 @@ function getUserById(event) {
                     console.log(data);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_5 = _a.sent();
+                    error_7 = _a.sent();
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -163,7 +211,7 @@ function getUserById(event) {
 }
 function handleUpdateUser(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var password, userId, data, error_6;
+        var password, userId, data, error_8;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -176,8 +224,8 @@ function handleUpdateUser(event) {
                     console.log(data);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_6 = _a.sent();
-                    console.error(error_6);
+                    error_8 = _a.sent();
+                    console.error(error_8);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteUserByID = exports.updateUserByID = exports.getUserById = exports.getUserByCookie = exports.getAllUsers = exports.getUser = exports.login = exports.register = void 0;
+exports.deleteUserByID = exports.updateUserByID = exports.getUserById = exports.getUserByCookie = exports.getAllUsers = exports.getUser = exports.logout = exports.login = exports.register = void 0;
 var userModel_1 = require("./userModel");
 var bcrypt_1 = require("bcrypt");
 var saltRounds = 10;
@@ -115,6 +115,21 @@ function login(req, res) {
     });
 }
 exports.login = login;
+function logout(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            try {
+                res.clearCookie("userID");
+                res.send({ logout: true });
+            }
+            catch (error) {
+                res.status(500).send({ error: error.message });
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+exports.logout = logout;
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var userID, userId, userDB, error_3;

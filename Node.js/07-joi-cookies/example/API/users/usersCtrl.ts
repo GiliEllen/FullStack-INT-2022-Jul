@@ -51,7 +51,7 @@ export async function login(req, res) {
     if (!userDB) throw new Error("User name or password do not match");
 
     const cookie = { userId: userDB._id }; //this is how we get the userId
-                //name    //value
+    //name    //value
     res.cookie("userID", cookie);
 
     res.send({ ok: true, userDB });
@@ -59,10 +59,18 @@ export async function login(req, res) {
     res.status(500).send({ error: error.message });
   }
 }
+export async function logout(req, res) {
+  try {
+    res.clearCookie("userID");
+    res.send({ logout: true });
+  } catch (error: any) {
+    res.status(500).send({ error: error.message });
+  }
+}
 
 export async function getUser(req: express.Request, res: express.Response) {
   try {
-    console.log(req.cookies)
+    console.log(req.cookies);
     // const secret = process.env.JWT_SECRET;
     // if (!secret) throw new Error("Couldn't load secret from .env");
 

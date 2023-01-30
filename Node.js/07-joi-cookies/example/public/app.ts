@@ -31,7 +31,8 @@ async function handleRegister(ev: any) {
       email,
     });
     console.log(data);
-    const { register } = data;
+    const { register, error } = data;
+    if (error) throw error
     if (register) window.location.href = "./home.html";
   } catch (error) {
     console.error(error);
@@ -45,6 +46,28 @@ async function getUserFromCookie() {
     const { userDB } = data;
     const username = document.querySelector("#username");
     username.innerHTML = `${userDB.email}`;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function handleCheckIfUserIsconnected() {
+  try {
+    //@ts-ignore
+    const { data } = await axios.get("/api/users/get-user-by-cookie");
+    const { userDB } = data;
+    if (userDB) window.location.href = "./home.html"
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function handleLogout() {
+  try {
+    //@ts-ignore
+    const { data } = await axios.get("/api/users/logout");
+    const { logout } = data;
+    if (logout) window.location.href = "./index.html"
   } catch (error) {
     console.error(error);
   }
