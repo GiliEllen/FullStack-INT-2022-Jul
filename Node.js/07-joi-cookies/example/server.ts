@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const PORT = 3000;
@@ -21,6 +22,7 @@ mongoose.connect(mongodb_uri).then(res => {
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cookieParser()); ////////////////////////// to parse to cookie out of send req
 
 import usersRoutes from "./API/users/usersRoutes";
 app.use("/api/users", usersRoutes);

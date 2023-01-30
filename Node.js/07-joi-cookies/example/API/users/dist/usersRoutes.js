@@ -6,6 +6,7 @@ var router = express_1["default"].Router();
 router
     // "/api/user"
     .get("", usersCtrl_1.getAllUsers)
+    .get("/get-user-by-cookie", usersCtrl_1.getUser)
     .get("/:id", usersCtrl_1.getUserById)
     .post("/login", usersCtrl_1.login)
     .post("/register", usersCtrl_1.register);

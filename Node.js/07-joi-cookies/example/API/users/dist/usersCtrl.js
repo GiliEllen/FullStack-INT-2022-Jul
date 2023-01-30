@@ -36,27 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteUserByID = exports.updateUserByID = exports.getUserById = exports.getAllUsers = exports.login = exports.register = void 0;
+exports.deleteUserByID = exports.updateUserByID = exports.getUserById = exports.getUserByCookie = exports.getAllUsers = exports.getUser = exports.login = exports.register = void 0;
 var userModel_1 = require("./userModel");
+var bcrypt_1 = require("bcrypt");
+var saltRounds = 10;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, userDB, error_1;
+        var _a, email, username, password, rePassword, error, salt, hash, userDB, cookie, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = req.body, email = _a.email, password = _a.password;
-                    userDB = new userModel_1["default"]({ email: email, password: password });
+                    _a = req.body, email = _a.email, username = _a.username, password = _a.password, rePassword = _a.rePassword;
+                    if (!email || !username || !password || !rePassword)
+                        throw new Error("Couldn't get all fields from req.body");
+                    error = userModel_1.UserValidation.validate({
+                        email: email,
+                        username: username,
+                        password: password,
+                        repeatPassword: rePassword
+                    }).error;
+                    if (error)
+                        throw error;
+                    salt = bcrypt_1["default"].genSaltSync(saltRounds);
+                    hash = bcrypt_1["default"].hashSync(password, salt);
+                    userDB = new userModel_1["default"]({ email: email, username: username, password: hash });
                     return [4 /*yield*/, userDB.save()];
                 case 1:
                     _b.sent();
-                    if (!userDB)
-                        throw new Error("no user was created");
-                    res.send({ ok: true });
+                    cookie = { userId: userDB._id };
+                    // const secret = process.env.JWT_SECRET;
+                    // if (!secret) throw new Error("Couldn't load secret from .env");
+                    // const JWTCookie = jwt.encode(cookie, secret);
+                    if (userDB) {
+                        // res.cookie("userID", JWTCookie);
+                        res.cookie("userID", cookie);
+                        res.send({ register: true, userDB: userDB });
+                    }
+                    else {
+                        res.send({ register: false });
+                    }
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _b.sent();
-                    res.status(500).send({ error: error_1.message });
+                    res.send({ error: error_1.message });
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -66,7 +89,7 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, userDB, error_2;
+        var _a, email, password, userDB, cookie, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -77,8 +100,9 @@ function login(req, res) {
                     userDB = _b.sent();
                     if (!userDB)
                         throw new Error("User name or password do not match");
-                    //send cookie
-                    res.send({ ok: true });
+                    cookie = { userId: userDB._id };
+                    res.cookie("userID", cookie);
+                    res.send({ ok: true, userDB: userDB });
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _b.sent();
@@ -90,10 +114,40 @@ function login(req, res) {
     });
 }
 exports.login = login;
+function getUser(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var userID, userId, userDB, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    console.log("running function");
+                    userID = req.cookies.userID;
+                    console.log(userID);
+                    if (!userID)
+                        throw new Error("Couldn't find user from cookies");
+                    userId = userID.userId;
+                    return [4 /*yield*/, userModel_1["default"].findById(userId)];
+                case 1:
+                    userDB = _a.sent();
+                    if (!userDB)
+                        throw new Error("Couldn't find user id with the id: " + userID);
+                    res.send({ userDB: userDB });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    res.send({ error: error_3.message });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getUser = getUser;
 //get All documents
 function getAllUsers(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var usersDB, error_3;
+        var usersDB, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -104,29 +158,6 @@ function getAllUsers(req, res) {
                     res.send({ usersDB: usersDB });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_3 = _a.sent();
-                    res.status(500).send({ error: error_3.message });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.getAllUsers = getAllUsers;
-//get user by id
-function getUserById(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var userDB, error_4;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, userModel_1["default"].findById(req.params.id)];
-                case 1:
-                    userDB = _a.sent();
-                    res.send({ userDB: userDB });
-                    return [3 /*break*/, 3];
-                case 2:
                     error_4 = _a.sent();
                     res.status(500).send({ error: error_4.message });
                     return [3 /*break*/, 3];
@@ -135,15 +166,30 @@ function getUserById(req, res) {
         });
     });
 }
-exports.getUserById = getUserById;
-function updateUserByID(req, res) {
+exports.getAllUsers = getAllUsers;
+function getUserByCookie(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            try {
+                res.send({ test: "test" });
+            }
+            catch (error) {
+                res.status(500).send({ error: error.message });
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+exports.getUserByCookie = getUserByCookie;
+//get user by id
+function getUserById(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var userDB, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, userModel_1["default"].findByIdAndUpdate(req.params.id, req.body, { "new": true, runValidators: true })];
+                    return [4 /*yield*/, userModel_1["default"].findById(req.params.id)];
                 case 1:
                     userDB = _a.sent();
                     res.send({ userDB: userDB });
@@ -157,10 +203,35 @@ function updateUserByID(req, res) {
         });
     });
 }
+exports.getUserById = getUserById;
+function updateUserByID(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var userDB, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, userModel_1["default"].findByIdAndUpdate(req.params.id, req.body, {
+                            "new": true,
+                            runValidators: true
+                        })];
+                case 1:
+                    userDB = _a.sent();
+                    res.send({ userDB: userDB });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_6 = _a.sent();
+                    res.status(500).send({ error: error_6.message });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 exports.updateUserByID = updateUserByID;
 function deleteUserByID(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var userDB, error_6;
+        var userDB, error_7;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -171,8 +242,8 @@ function deleteUserByID(req, res) {
                     res.send({ userDB: userDB });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_6 = _a.sent();
-                    res.status(500).send({ error: error_6.message });
+                    error_7 = _a.sent();
+                    res.status(500).send({ error: error_7.message });
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }

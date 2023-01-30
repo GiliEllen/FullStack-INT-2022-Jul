@@ -11,6 +11,7 @@ async function handleLogin(ev: any) {
     const { ok } = data;
     if (ok) {
       console.log("suuccesful Login");
+      window.location.href = "./home.html";
     }
   } catch (error) {
     console.error(error);
@@ -30,6 +31,20 @@ async function handleRegister(ev: any) {
       email,
     });
     console.log(data);
+    const { register } = data;
+    if (register) window.location.href = "./home.html";
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getUserFromCookie() {
+  try {
+    //@ts-ignore
+    const { data } = await axios.get("/api/users/get-user-by-cookie");
+    const { userDB } = data;
+    const username = document.querySelector("#username");
+    username.innerHTML = `${userDB.email}`;
   } catch (error) {
     console.error(error);
   }
@@ -52,18 +67,17 @@ async function getUserById(event) {
     //@ts-ignore
     const { data } = await axios.get(`/api/users/${userId}`);
     console.log(data);
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
 
 async function handleUpdateUser(event) {
   try {
     const password = event.target.elements.password.value;
     const userId = event.target.elements.userId.value;
-    const {data} = await axios.patch(`/api/users/${userId}`, {password});
-    console.log(data)
+    //@ts-ignore
+    const { data } = await axios.patch(`/api/users/${userId}`, { password });
+    console.log(data);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
