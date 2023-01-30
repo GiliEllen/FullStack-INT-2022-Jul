@@ -50,9 +50,10 @@ export async function login(req, res) {
     const userDB = await UserModel.findOne({ email, password });
     if (!userDB) throw new Error("User name or password do not match");
 
-    const cookie = { userId: userDB._id };
-
+    const cookie = { userId: userDB._id }; //this is how we get the userId
+                //name    //value
     res.cookie("userID", cookie);
+
     res.send({ ok: true, userDB });
   } catch (error: any) {
     res.status(500).send({ error: error.message });
@@ -61,10 +62,9 @@ export async function login(req, res) {
 
 export async function getUser(req: express.Request, res: express.Response) {
   try {
-    console.log("running function");
+    console.log(req.cookies)
     // const secret = process.env.JWT_SECRET;
     // if (!secret) throw new Error("Couldn't load secret from .env");
-   
 
     const { userID } = req.cookies;
     console.log(userID);
@@ -94,9 +94,9 @@ export async function getAllUsers(req, res) {
     res.status(500).send({ error: error.message });
   }
 }
-export async function getUserByCookie(req,res) {
+export async function getUserByCookie(req, res) {
   try {
-    res.send({ test:"test" });
+    res.send({ test: "test" });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

@@ -101,6 +101,7 @@ function login(req, res) {
                     if (!userDB)
                         throw new Error("User name or password do not match");
                     cookie = { userId: userDB._id };
+                    //name    //value
                     res.cookie("userID", cookie);
                     res.send({ ok: true, userDB: userDB });
                     return [3 /*break*/, 3];
@@ -121,7 +122,7 @@ function getUser(req, res) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    console.log("running function");
+                    console.log(req.cookies);
                     userID = req.cookies.userID;
                     console.log(userID);
                     if (!userID)
