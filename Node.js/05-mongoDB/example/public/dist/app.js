@@ -42,6 +42,7 @@ function handleLogin(ev) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     ev.preventDefault();
+                    console.log(ev);
                     password = ev.target.elements.password.value;
                     email = ev.target.elements.email.value;
                     console.log(password, email);
@@ -65,7 +66,7 @@ function handleLogin(ev) {
 }
 function handleRegister(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var password, email, data, error_2;
+        var password, email, data, error, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -80,6 +81,9 @@ function handleRegister(ev) {
                         })];
                 case 1:
                     data = (_a.sent()).data;
+                    error = data.error;
+                    if (error)
+                        throw error;
                     console.log(data);
                     return [3 /*break*/, 3];
                 case 2:
@@ -134,3 +138,28 @@ function getUserById(event) {
         });
     });
 }
+function handleUpdateUser(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var password, userId, data, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    event.preventDefault();
+                    password = event.target.elements.password.value;
+                    userId = event.target.elements.userId.value;
+                    return [4 /*yield*/, axios.patch("/api/users/" + userId, { password: password })];
+                case 1:
+                    data = (_a.sent()).data;
+                    console.log(data);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_5 = _a.sent();
+                    console.error(error_5);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+// "/api/users/register"

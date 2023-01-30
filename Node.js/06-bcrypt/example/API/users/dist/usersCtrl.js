@@ -38,25 +38,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.deleteUserByID = exports.updateUserByID = exports.getUserById = exports.getAllUsers = exports.login = exports.register = void 0;
 var userModel_1 = require("./userModel");
+var bcrypt_1 = require("bcrypt");
+var saltRounds = 10;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, userDB, error_1;
+        var _a, email, password, salt, hash, userDB, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     _a = req.body, email = _a.email, password = _a.password;
-                    userDB = new userModel_1["default"]({ email: email, password: password });
+                    if (!email || !password)
+                        throw new Error("Couldn't get all fields from req.body");
+                    salt = bcrypt_1["default"].genSaltSync(saltRounds);
+                    hash = bcrypt_1["default"].hashSync(password, salt);
+                    userDB = new userModel_1["default"]({ email: email, password: hash });
                     return [4 /*yield*/, userDB.save()];
                 case 1:
                     _b.sent();
-                    if (!userDB)
-                        throw new Error("no user was created");
-                    res.send({ ok: true });
+                    //sending cookie
+                    if (userDB) {
+                        res.send({ register: true, userDB: userDB });
+                    }
+                    else {
+                        res.send({ register: false });
+                    }
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _b.sent();
-                    res.status(500).send({ error: error_1.message });
+                    res.send({ error: error_1.message });
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -66,25 +76,29 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, userDB, error_2;
+        var _a, email, password, userDB, isMatch, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     _a = req.body, email = _a.email, password = _a.password;
-                    return [4 /*yield*/, userModel_1["default"].findOne({ email: email, password: password })];
+                    return [4 /*yield*/, userModel_1["default"].findOne({ email: email })];
                 case 1:
                     userDB = _b.sent();
                     if (!userDB)
-                        throw new Error("User name or password do not match");
-                    //send cookie
-                    res.send({ ok: true });
-                    return [3 /*break*/, 3];
+                        throw new Error("Email name do not match");
+                    return [4 /*yield*/, bcrypt_1["default"].compare(password, userDB.password)];
                 case 2:
+                    isMatch = _b.sent();
+                    if (!isMatch)
+                        throw new Error("email and password not match");
+                    res.send({ ok: true, userDB: userDB });
+                    return [3 /*break*/, 4];
+                case 3:
                     error_2 = _b.sent();
                     res.status(500).send({ error: error_2.message });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

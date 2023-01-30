@@ -4,6 +4,7 @@ import UserModel from "./userModel";
 export async function register(req, res) {
   try {
     const { email, password } = req.body;
+    if(!email || !password) throw new Error("no password or email from client on FUNCTION register in FILE userCtrl")
 
     // const userDB = await UserModel.create({ email, password });
     // if(!userDB) throw new Error("no user was created")
@@ -52,7 +53,8 @@ export async function getUserById(req, res) {
 }
 
 export async function updateUserByID(req, res) {
-  try {                                           //who to change? // to what information // option - send new doc / run the validations again
+  try {              
+                                                   //who to change? // to what information // option - send new doc / run the validations again
     const userDB = await UserModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
     res.send({userDB});
   } catch (error) {
@@ -61,7 +63,7 @@ export async function updateUserByID(req, res) {
 }
 
 export async function deleteUserByID(req, res) {
-  try {                                           //who to change? // to what information // option - send new doc
+  try {                                           //who to change? 
     const userDB = await UserModel.findByIdAndDelete(req.params.id);
     res.send({userDB});
   } catch (error) {

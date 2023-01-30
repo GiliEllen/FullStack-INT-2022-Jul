@@ -8,5 +8,6 @@ router
     .get("", usersCtrl_1.getAllUsers)
     .get("/:id", usersCtrl_1.getUserById)
     .post("/login", usersCtrl_1.login)
-    .post("/register", usersCtrl_1.register);
+    .post("/register", usersCtrl_1.register)
+    .patch("/:id", usersCtrl_1.updateUserByID);
 exports["default"] = router;

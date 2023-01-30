@@ -46,6 +46,8 @@ function register(req, res) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     _a = req.body, email = _a.email, password = _a.password;
+                    if (!email || !password)
+                        throw new Error("no password or email from client on FUNCTION register in FILE userCtrl");
                     userDB = new userModel_1["default"]({ email: email, password: password });
                     return [4 /*yield*/, userDB.save()];
                 case 1:
@@ -77,7 +79,6 @@ function login(req, res) {
                     userDB = _b.sent();
                     if (!userDB)
                         throw new Error("User name or password do not match");
-                    //send cookie
                     res.send({ ok: true });
                     return [3 /*break*/, 3];
                 case 2:

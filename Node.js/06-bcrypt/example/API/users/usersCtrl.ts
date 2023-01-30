@@ -1,22 +1,21 @@
 import express from "express";
 import mongoose from "mongoose";
-import UserModel, {UserValidation} from "./userModel";
+import UserModel from "./userModel";
 import bcrypt from 'bcrypt';
-import { decode } from 'punycode';
 const saltRounds = 10;
 
 export async function register(req:express.Request, res:express.Response) {
     try {
-        const { email, username, password, rePassword } = req.body;
-        if (!email || !username || !password || !rePassword) throw new Error("Couldn't get all fields from req.body");
+        const { email, password } = req.body;
+        if (!email || !password ) throw new Error("Couldn't get all fields from req.body");
 
-        const { error } = UserValidation.validate({ email, username, password, repeatPassword: rePassword });
-        if (error) throw error;
+        // const { error } = UserValidation.validate({ email, username, password, repeatPassword: rePassword });
+        // if (error) throw error;
 
         const salt = bcrypt.genSaltSync(saltRounds);
         const hash = bcrypt.hashSync(password, salt);
 
-        const userDB = new UserModel({ email, username, password: hash });
+        const userDB = new UserModel({ email, password: hash });
         await userDB.save();
 
         //sending cookie
@@ -37,10 +36,14 @@ export async function login(req, res) {
   try {
     const { email, password } = req.body;
 
-    const userDB = await UserModel.findOne({ email, password });
-    if (!userDB) throw new Error("User name or password do not match");
+    const userDB = await UserModel.findOne({ email });
+    if (!userDB) throw new Error("Email name do not match");
 
-    res.send({ ok: true });
+    const isMatch = await bcrypt.compare(password, userDB.password); //return boolean
+    if(!isMatch)  throw new Error("email and password not match")
+
+
+    res.send({ ok: true, userDB });
   } catch (error: any) {
     res.status(500).send({ error: error.message });
   }
