@@ -23,6 +23,7 @@ async function handleRegister(ev: any) {
     ev.preventDefault();
     const password = ev.target.elements.password.value;
     const email = ev.target.elements.email.value;
+    if(!email || ! password) throw new Error("password and email is required")
     console.log(password, email);
 
     //@ts-ignore
@@ -32,6 +33,10 @@ async function handleRegister(ev: any) {
     });
     console.log(data);
     const { register, error } = data;
+
+    // const register = data.register; // register = undifiend
+    // const error = data.error // error: ""
+
     if (error) throw error
     if (register) window.location.href = "./home.html";
   } catch (error) {

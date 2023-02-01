@@ -74,6 +74,8 @@ function handleRegister(ev) {
                     ev.preventDefault();
                     password = ev.target.elements.password.value;
                     email = ev.target.elements.email.value;
+                    if (!email || !password)
+                        throw new Error("password and email is required");
                     console.log(password, email);
                     return [4 /*yield*/, axios.post("/api/users/register", {
                             password: password,
@@ -83,6 +85,8 @@ function handleRegister(ev) {
                     data = (_a.sent()).data;
                     console.log(data);
                     register = data.register, error = data.error;
+                    // const register = data.register; // register = undifiend
+                    // const error = data.error // error: ""
                     if (error)
                         throw error;
                     if (register)

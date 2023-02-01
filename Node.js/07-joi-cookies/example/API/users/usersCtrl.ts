@@ -2,6 +2,7 @@ import express from "express";
 import UserModel, { UserValidation } from "./userModel";
 import bcrypt from "bcrypt";
 import jwt from "jwt-simple";
+import { string } from "joi";
 const saltRounds = 10;
 
 export async function register(req: express.Request, res: express.Response) {
