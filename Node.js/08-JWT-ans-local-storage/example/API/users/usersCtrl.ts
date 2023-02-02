@@ -40,6 +40,7 @@ export async function register(req: express.Request, res: express.Response) {
 
 export async function login(req: express.Request, res: express.Response) {
   try {
+    
       const { email, password } = req.body;
       if (!email || !password) throw new Error("Couldn't get all fields from req.body");
 
