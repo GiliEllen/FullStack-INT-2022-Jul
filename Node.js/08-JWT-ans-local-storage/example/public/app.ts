@@ -8,7 +8,8 @@ async function handleLogin(ev: any) {
     //@ts-ignore
     const { data } = await axios.post("/api/users/login", { password, email });
     console.log(data);
-    const { ok } = data;
+    const { ok, userDB } = data;
+    sessionStorage.setItem("id", userDB._id)
     if (ok) {
       console.log("suuccesful Login");
       window.location.href = "./home.html";
@@ -45,6 +46,17 @@ async function handleRegister(ev: any) {
   }
 }
 
+async function updateUser(ev) {
+  try {
+    const id = sessionStorage.getItem("id");
+
+    const {data} = await axios.post("/api/users/update", {id})
+    console.log(data)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 async function getUserFromCookie() {
   try {
     //@ts-ignore
@@ -62,6 +74,7 @@ async function handleCheckIfUserIsconnected() {
     //@ts-ignore
     const { data } = await axios.get("/api/users/get-user-by-cookie");
     const { userDB } = data;
+
     if (userDB) window.location.href = "./home.html";
   } catch (error) {
     console.error(error);
@@ -73,6 +86,7 @@ async function handleLogout() {
     //@ts-ignore
     const { data } = await axios.get("/api/users/logout");
     const { logout } = data;
+    sessionStorage.removeItem("id")
     if (logout) window.location.href = "./index.html";
   } catch (error) {
     console.error(error);

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleLogin(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var password, email, data, ok, error_1;
+        var password, email, data, ok, userDB, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -49,7 +49,8 @@ function handleLogin(ev) {
                 case 1:
                     data = (_a.sent()).data;
                     console.log(data);
-                    ok = data.ok;
+                    ok = data.ok, userDB = data.userDB;
+                    sessionStorage.setItem("id", userDB._id);
                     if (ok) {
                         console.log("suuccesful Login");
                         window.location.href = "./home.html";
@@ -102,9 +103,31 @@ function handleRegister(ev) {
         });
     });
 }
+function updateUser(ev) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, data, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    id = sessionStorage.getItem("id");
+                    return [4 /*yield*/, axios.post("/api/users/update", { id: id })];
+                case 1:
+                    data = (_a.sent()).data;
+                    console.log(data);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    console.error(error_3);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function getUserFromCookie() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, userDB, username, error_3;
+        var data, userDB, username, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -117,8 +140,8 @@ function getUserFromCookie() {
                     username.innerHTML = "" + userDB.email;
                     return [3 /*break*/, 3];
                 case 2:
-                    error_3 = _a.sent();
-                    console.error(error_3);
+                    error_4 = _a.sent();
+                    console.error(error_4);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -127,7 +150,7 @@ function getUserFromCookie() {
 }
 function handleCheckIfUserIsconnected() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, userDB, error_4;
+        var data, userDB, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -140,29 +163,6 @@ function handleCheckIfUserIsconnected() {
                         window.location.href = "./home.html";
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _a.sent();
-                    console.error(error_4);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-function handleLogout() {
-    return __awaiter(this, void 0, void 0, function () {
-        var data, logout, error_5;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios.get("/api/users/logout")];
-                case 1:
-                    data = (_a.sent()).data;
-                    logout = data.logout;
-                    if (logout)
-                        window.location.href = "./index.html";
-                    return [3 /*break*/, 3];
-                case 2:
                     error_5 = _a.sent();
                     console.error(error_5);
                     return [3 /*break*/, 3];
@@ -171,17 +171,20 @@ function handleLogout() {
         });
     });
 }
-function handlegetAllUsers() {
+function handleLogout() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, error_6;
+        var data, logout, error_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios.get("/api/users")];
+                    return [4 /*yield*/, axios.get("/api/users/logout")];
                 case 1:
                     data = (_a.sent()).data;
-                    console.log(data);
+                    logout = data.logout;
+                    sessionStorage.removeItem("id");
+                    if (logout)
+                        window.location.href = "./index.html";
                     return [3 /*break*/, 3];
                 case 2:
                     error_6 = _a.sent();
@@ -192,9 +195,30 @@ function handlegetAllUsers() {
         });
     });
 }
+function handlegetAllUsers() {
+    return __awaiter(this, void 0, void 0, function () {
+        var data, error_7;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, axios.get("/api/users")];
+                case 1:
+                    data = (_a.sent()).data;
+                    console.log(data);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_7 = _a.sent();
+                    console.error(error_7);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function getUserById(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var userId, data, error_7;
+        var userId, data, error_8;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -207,7 +231,7 @@ function getUserById(event) {
                     console.log(data);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_7 = _a.sent();
+                    error_8 = _a.sent();
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -216,7 +240,7 @@ function getUserById(event) {
 }
 function handleUpdateUser(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var password, userId, data, error_8;
+        var password, userId, data, error_9;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -229,8 +253,8 @@ function handleUpdateUser(event) {
                     console.log(data);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_8 = _a.sent();
-                    console.error(error_8);
+                    error_9 = _a.sent();
+                    console.error(error_9);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
