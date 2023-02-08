@@ -124,3 +124,29 @@ async function handleUpdateUser(event) {
     console.error(error);
   }
 }
+
+async function handleGetAllImages() {
+  try {
+    const {data} = await axios.get("/api/v1/images")
+    const {imagesDB} = data;
+
+    renderImages(imagesDB)
+   
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function renderImages(arrayOfImages) {
+  const root = document.querySelector(".root"); //root has a css that makes it flex (and wrap)
+
+  arrayOfImages.forEach(image => {
+    //create div
+    //create image
+    //add image to div append child
+    //add name and append
+    //classlist
+    //set attribute
+    //append div to root
+  });
+}
