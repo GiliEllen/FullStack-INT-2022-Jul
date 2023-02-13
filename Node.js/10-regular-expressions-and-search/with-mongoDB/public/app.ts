@@ -174,6 +174,8 @@ function renderListToRoot(arrayToList) {
   }
 }
 
+
+
 // async function handleSearchUsername(event) {
 //   try {
 //     const userSearch = event.target.value;
