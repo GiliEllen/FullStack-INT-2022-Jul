@@ -144,3 +144,22 @@ export async function deleteUserByID(req, res) {
     res.status(500).send({ error: error.message });
   }
 }
+
+export async function searchDB(req, res) {
+  try {
+    const category = req.params.category;
+    const {searchString} = req.body
+    const pattern = RegExp(searchString)
+
+    // if(category === "username") {
+    //   const usersDB = await UserModel.find({'username':{ $regex : pattern}})
+    // }
+
+    const usersDBnoReg = await UserModel.find({"username": searchString})
+    const usersDB = await UserModel.find({'username':{ $regex : pattern}})
+   
+    res.send({usersDB, usersDBnoReg})
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+}

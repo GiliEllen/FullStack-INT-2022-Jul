@@ -9,7 +9,7 @@ async function handleLogin(ev: any) {
     const { data } = await axios.post("/api/users/login", { password, email });
     console.log(data);
     const { ok, userDB } = data;
-    sessionStorage.setItem("id", userDB._id)
+    sessionStorage.setItem("id", userDB._id);
     if (ok) {
       console.log("suuccesful Login");
       window.location.href = "./home.html";
@@ -49,11 +49,11 @@ async function handleRegister(ev: any) {
 async function updateUser(ev) {
   try {
     const id = sessionStorage.getItem("id");
-
-    const {data} = await axios.post("/api/users/update", {id})
-    console.log(data)
+    //@ts-ignore
+    const { data } = await axios.post("/api/users/update", { id });
+    console.log(data);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
@@ -86,7 +86,7 @@ async function handleLogout() {
     //@ts-ignore
     const { data } = await axios.get("/api/users/logout");
     const { logout } = data;
-    sessionStorage.removeItem("id")
+    sessionStorage.removeItem("id");
     if (logout) window.location.href = "./index.html";
   } catch (error) {
     console.error(error);
@@ -122,5 +122,46 @@ async function handleUpdateUser(event) {
     console.log(data);
   } catch (error) {
     console.error(error);
+  }
+}
+
+async function handleSearch(event) {
+  try {
+    const root = document.querySelector(".root");
+    const searchString = event.target.value;
+    const category = event.target.id
+    if( searchString === "") {
+      root. innerHTML = "";
+      return
+    }
+    console.log(searchString);
+    //@ts-ignore
+    const { data } = await axios.post(`/api/users/search/${category}`, {
+      searchString,
+    });
+    const { usersDB } = data;
+    console.log(usersDB);
+
+    renderListToRoot(usersDB)
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function renderListToRoot(arrayToList) {
+  try {
+    const root = document.querySelector(".root");
+    let html = "<ol>";
+
+    arrayToList.forEach((element) => {
+      html += `<li> ${element.username}'s email is: ${element.email}.</li>`;
+    });
+
+    html += '</ol>'
+
+    root.innerHTML = html;
+
+  } catch (error) {
+    console.error(error)
   }
 }

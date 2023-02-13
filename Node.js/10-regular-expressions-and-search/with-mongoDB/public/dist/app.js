@@ -261,3 +261,50 @@ function handleUpdateUser(event) {
         });
     });
 }
+function handleSearch(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var root, searchString, category, data, usersDB, error_10;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    root = document.querySelector(".root");
+                    searchString = event.target.value;
+                    category = event.target.id;
+                    if (searchString === "") {
+                        root.innerHTML = "";
+                        return [2 /*return*/];
+                    }
+                    console.log(searchString);
+                    return [4 /*yield*/, axios.post("/api/users/search/" + category, {
+                            searchString: searchString
+                        })];
+                case 1:
+                    data = (_a.sent()).data;
+                    usersDB = data.usersDB;
+                    console.log(usersDB);
+                    renderListToRoot(usersDB);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_10 = _a.sent();
+                    console.error(error_10);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function renderListToRoot(arrayToList) {
+    try {
+        var root = document.querySelector(".root");
+        var html_1 = "<ol>";
+        arrayToList.forEach(function (element) {
+            html_1 += "<li> " + element.username + "'s email is: " + element.email + ".</li>";
+        });
+        html_1 += '</ol>';
+        root.innerHTML = html_1;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}

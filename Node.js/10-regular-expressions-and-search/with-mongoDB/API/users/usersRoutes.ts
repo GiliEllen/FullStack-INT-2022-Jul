@@ -5,7 +5,8 @@ import {
   register,
   getUserById,
   getUser,
-  logout
+  logout,
+  searchDB
 } from "./usersCtrl";
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router
   .get("/logout", logout)
   .get("/:id", getUserById)
   .post("/login", login)
-  .post("/register", register);
+  .post("/register", register)
+  .post("/search/:category", searchDB)
 
 export default router;
