@@ -1,5 +1,5 @@
 console.log("connected");
-var re = /gili/; //create regular expression ehrn scrupt is loaded
+var re = /gili/; //create regular expression when script is loaded
 var re2 = new RegExp("gili"); // creates regular expression while in runtime = during the
 // execution of the code complation and good when you don't knoe the pattern like user input
 console.log(re);
@@ -10,11 +10,11 @@ var string = RegExp("string");
 var result = string.test("bowstrings need to be very powerfull");
 var result2 = string.test("his hamstrings are in pain");
 var result3 = string.test("ringtoss b");
-console.log(result);
-console.log(result2);
-console.log(result3);
-//special characters
-//more than a direct match
+// console.log(result);
+// console.log(result2);
+// console.log(result3);
+// //special characters
+// //more than a direct match
 var abc = RegExp("ab*c");
 var result4 = abc.test("cbbabbbbcdebc");
 console.log(result4);
@@ -50,11 +50,12 @@ var sentence = "A ticket to 大阪 costs ¥2000 👌.";
 var regexpEmojiPresentation = /\p{Emoji_Presentation}/gu;
 console.log(sentence.match(regexpEmojiPresentation)); // Expected output: Array ["👌"]
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes
-//Summery:
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet
-//Escaping - looking for the regular expression characters
-//breaking with backslash \
+// Summery:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet
+// //Escaping - looking for the regular expression characters
+// //breaking with backslash \
 var aStar = RegExp("a*"); // a*
+// const aStar = /a\*/; // a*
 var result6 = aStar.test("i told you many times you a****l!!");
 console.log(result6);
 //tasks
