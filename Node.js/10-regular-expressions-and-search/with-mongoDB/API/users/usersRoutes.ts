@@ -19,6 +19,7 @@ router
   .get("/:id", getUserById)
   .post("/login", login)
   .post("/register", register)
+  // .post("/search", searchDB)
   .post("/search/:category", searchDB)
 
 export default router;

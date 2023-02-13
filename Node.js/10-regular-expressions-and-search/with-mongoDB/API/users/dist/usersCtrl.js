@@ -305,3 +305,13 @@ function searchDB(req, res) {
     });
 }
 exports.searchDB = searchDB;
+// export async function searchDB(req, res) {
+//   try {
+//     const {userSearch} = req.body
+//     const pattern = new RegExp(userSearch)
+//     const usersDB = await UserModel.find({'username': {$regex: pattern}})
+//     res.send({usersDB})
+//   } catch (error) {
+//     res.status(500).send({error: error.message})
+//   }
+// }

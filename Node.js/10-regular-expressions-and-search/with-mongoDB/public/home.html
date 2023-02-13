@@ -15,8 +15,17 @@
     <h1>Welcome:</h1>
     <h2 id="username"></h2>
     <button onclick="handleLogout()">LOGOUT</button>
-    <input oninput="handleSearch(event)" id="username" type="text" placeholder="Search user by username:">
-    <button type="submit">Search</button>
+
+    <!-- <form onsubmit="onSubmit(event)">
+        <select name="category" id="category">
+            <option value="iphone">iphone</option>
+            <option value="mac">mac</option>
+            <option value="appleTV">appleTV</option>
+        </select> -->
+        <input oninput="handleSearch(event)" id="username" type="text" placeholder="Search user by username:">
+        <button type="submit">Search</button>
+    <!-- </form> -->
+    
     <div class="root"></div>
 </body>
 <script src="./dist/app.js"></script>

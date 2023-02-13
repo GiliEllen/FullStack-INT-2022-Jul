@@ -153,6 +153,8 @@ export async function searchDB(req, res) {
 
     // if(category === "username") {
     //   const usersDB = await UserModel.find({'username':{ $regex : pattern}})
+    // } else if (category === 'age') {
+    //   const usersDB = await UserModel.find({'age':{ $regex : pattern}})
     // }
 
     const usersDBnoReg = await UserModel.find({"username": searchString})
@@ -163,3 +165,15 @@ export async function searchDB(req, res) {
     res.status(500).send({ error: error.message });
   }
 }
+
+// export async function searchDB(req, res) {
+//   try {
+
+//     const {userSearch} = req.body
+//     const pattern = new RegExp(userSearch)
+//     const usersDB = await UserModel.find({'username': {$regex: pattern}})
+//     res.send({usersDB})
+//   } catch (error) {
+//     res.status(500).send({error: error.message})
+//   }
+// }

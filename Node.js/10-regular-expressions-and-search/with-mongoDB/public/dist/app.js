@@ -261,6 +261,16 @@ function handleUpdateUser(event) {
         });
     });
 }
+function onSubmit(event) {
+    try {
+        event.preventDefault();
+        var category = event.target.elements.category.value;
+        console.log(category);
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
 function handleSearch(event) {
     return __awaiter(this, void 0, void 0, function () {
         var root, searchString, category, data, usersDB, error_10;
@@ -270,15 +280,14 @@ function handleSearch(event) {
                     _a.trys.push([0, 2, , 3]);
                     root = document.querySelector(".root");
                     searchString = event.target.value;
-                    category = event.target.id;
+                    category = event.target.id // can do with select input
+                    ;
                     if (searchString === "") {
                         root.innerHTML = "";
                         return [2 /*return*/];
                     }
                     console.log(searchString);
-                    return [4 /*yield*/, axios.post("/api/users/search/" + category, {
-                            searchString: searchString
-                        })];
+                    return [4 /*yield*/, axios.post("/api/users/search/" + category, { searchString: searchString })];
                 case 1:
                     data = (_a.sent()).data;
                     usersDB = data.usersDB;
@@ -308,3 +317,16 @@ function renderListToRoot(arrayToList) {
         console.error(error);
     }
 }
+// async function handleSearchUsername(event) {
+//   try {
+//     const userSearch = event.target.value;
+//     //@ts-ignore
+//     const {data} = await axios.post("/api/users/search", {userSearch});
+//     console.log(data)
+//     const {usersDB} = data
+//     const root = document.querySelector(".root");
+//     root.innerHTML = `${usersDB[0].username}`
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }

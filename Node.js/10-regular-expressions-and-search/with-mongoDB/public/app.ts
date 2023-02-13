@@ -125,20 +125,28 @@ async function handleUpdateUser(event) {
   }
 }
 
+function onSubmit(event) {
+  try {
+    event.preventDefault();
+    const category = event.target.elements.category.value
+    console.log(category)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 async function handleSearch(event) {
   try {
     const root = document.querySelector(".root");
     const searchString = event.target.value;
-    const category = event.target.id
+    const category = event.target.id // can do with select input
     if( searchString === "") {
-      root. innerHTML = "";
+      root.innerHTML = "";
       return
     }
     console.log(searchString);
     //@ts-ignore
-    const { data } = await axios.post(`/api/users/search/${category}`, {
-      searchString,
-    });
+    const { data } = await axios.post(`/api/users/search/${category}`, {searchString});
     const { usersDB } = data;
     console.log(usersDB);
 
@@ -165,3 +173,17 @@ function renderListToRoot(arrayToList) {
     console.error(error)
   }
 }
+
+// async function handleSearchUsername(event) {
+//   try {
+//     const userSearch = event.target.value;
+//     //@ts-ignore
+//     const {data} = await axios.post("/api/users/search", {userSearch});
+//     console.log(data)
+//     const {usersDB} = data
+//     const root = document.querySelector(".root");
+//     root.innerHTML = `${usersDB[0].username}`
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
