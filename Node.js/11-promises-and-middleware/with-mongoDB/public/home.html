@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+        integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body onload="getUserFromCookie()">
+    <h1>Welcome:</h1>
+    <h2 id="username"></h2>
+    <button onclick="handleLogout()">LOGOUT</button>
+
+    <!-- <form onsubmit="onSubmit(event)">
+        <select name="category" id="category">
+            <option value="iphone">iphone</option>
+            <option value="mac">mac</option>
+            <option value="appleTV">appleTV</option>
+        </select> -->
+        <input oninput="handleSearch(event)" id="username" type="text" placeholder="Search user by username:">
+        <button type="submit">Search</button>
+    <!-- </form> -->
+    
+    <div class="root"></div>
+</body>
+<script src="./dist/app.js"></script>
+
+</html>
