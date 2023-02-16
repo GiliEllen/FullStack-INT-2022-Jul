@@ -2,6 +2,7 @@ import express from "express";
 import UserModel, { UserValidation } from "./userModel";
 import bcrypt from "bcrypt";
 import jwt from "jwt-simple";
+import UserProductModel from './../../../../08-JWT-ans-local-storage/example/API/user_products/userProductsModel';
 const saltRounds = 10;
 
 export async function register(req: express.Request, res: express.Response) {
@@ -213,3 +214,4 @@ export async function searchUsereBySiblingName(req, res) {
     res.status;
   }
 }
+
