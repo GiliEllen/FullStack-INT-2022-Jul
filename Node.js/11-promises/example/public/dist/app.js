@@ -261,38 +261,46 @@ function handleUpdateUser(event) {
         });
     });
 }
-function onSubmit(event) {
+function renderListToRoot(arrayToList) {
     try {
-        event.preventDefault();
-        var category = event.target.elements.category.value;
-        console.log(category);
+        var root = document.querySelector(".root");
+        var html_1 = "<ol>";
+        arrayToList.forEach(function (element) {
+            html_1 += "<li> " + element.username + "'s email is: " + element.email + ".</li>";
+        });
+        html_1 += "</ol>";
+        root.innerHTML = html_1;
     }
     catch (error) {
         console.error(error);
     }
 }
-function handleSearch(event) {
+function handleAddSiblings(event) {
+    event.preventDefault();
+    var email1 = event.target.elements.email1.value;
+    var email2 = event.target.elements.email2.value;
+    //to make it faster created wrong route. good route will include the logged in user id with params
+    //@ts-ignore
+    axios
+        .post("/api/users/add-sibling", { email1: email1, email2: email2 })
+        .than(function (_a) {
+        var data = _a.data;
+        return console.log(data + "ok");
+    })["catch"](function (err) { return console.error(err); });
+}
+function handleSearchSiblingsByUsername(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var root, searchString, category, data, usersDB, error_10;
+        var username, data, error_10;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    root = document.querySelector(".root");
-                    searchString = event.target.value;
-                    category = event.target.id // can do with select input
-                    ;
-                    if (searchString === "") {
-                        root.innerHTML = "";
-                        return [2 /*return*/];
-                    }
-                    console.log(searchString);
-                    return [4 /*yield*/, axios.post("/api/users/search/" + category, { searchString: searchString })];
+                    event.preventDefault();
+                    username = event.target.elements.usernameToSearch.value;
+                    return [4 /*yield*/, axios.post("/api/users/search-sibling-by-username", { username: username })];
                 case 1:
                     data = (_a.sent()).data;
-                    usersDB = data.usersDB;
-                    console.log(usersDB);
-                    renderListToRoot(usersDB);
+                    console.log(data);
                     return [3 /*break*/, 3];
                 case 2:
                     error_10 = _a.sent();
@@ -303,30 +311,3 @@ function handleSearch(event) {
         });
     });
 }
-function renderListToRoot(arrayToList) {
-    try {
-        var root = document.querySelector(".root");
-        var html_1 = "<ol>";
-        arrayToList.forEach(function (element) {
-            html_1 += "<li> " + element.username + "'s email is: " + element.email + ".</li>";
-        });
-        html_1 += '</ol>';
-        root.innerHTML = html_1;
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-// async function handleSearchUsername(event) {
-//   try {
-//     const userSearch = event.target.value;
-//     //@ts-ignore
-//     const {data} = await axios.post("/api/users/search", {userSearch});
-//     console.log(data)
-//     const {usersDB} = data
-//     const root = document.querySelector(".root");
-//     root.innerHTML = `${usersDB[0].username}`
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }

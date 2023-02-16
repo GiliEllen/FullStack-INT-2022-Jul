@@ -22,9 +22,16 @@
             <option value="mac">mac</option>
             <option value="appleTV">appleTV</option>
         </select> -->
-        <input oninput="handleSearch(event)" id="username" type="text" placeholder="Search user by username:">
-        <button type="submit">Search</button>
+        <!-- <input oninput="handleSearch(event)" id="username" type="text" placeholder="Search user by username:">
+        <button type="submit">Search</button> -->
     <!-- </form> -->
+
+    <form onsubmit="handleAddSiblings(event)">
+        <h4>Enter Siblings emails</h4>
+        <input type="text" placeholder="Email 1" id="email1">
+        <input type="text" placeholder="Email 2" id="email2">
+        <button>Make Siblings</button>
+    </form>
     
     <div class="root"></div>
 </body>

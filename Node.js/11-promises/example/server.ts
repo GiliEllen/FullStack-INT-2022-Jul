@@ -25,7 +25,7 @@ mongoose
 
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cookieParser()); ////////////////////////// to parse to cookie out of send req
+app.use(cookieParser());
 
 import usersRoutes from "./API/users/usersRoutes";
 app.use("/api/users", usersRoutes);

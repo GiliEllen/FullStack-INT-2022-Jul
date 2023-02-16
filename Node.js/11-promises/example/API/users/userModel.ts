@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   password: String,
+  sibling: Object
 });
 
 const UserModel = mongoose.model("users", UserSchema);

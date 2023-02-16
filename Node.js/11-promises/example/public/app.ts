@@ -125,37 +125,6 @@ async function handleUpdateUser(event) {
   }
 }
 
-function onSubmit(event) {
-  try {
-    event.preventDefault();
-    const category = event.target.elements.category.value
-    console.log(category)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-async function handleSearch(event) {
-  try {
-    const root = document.querySelector(".root");
-    const searchString = event.target.value;
-    const category = event.target.id // can do with select input
-    if( searchString === "") {
-      root.innerHTML = "";
-      return
-    }
-    console.log(searchString);
-    //@ts-ignore
-    const { data } = await axios.post(`/api/users/search/${category}`, {searchString});
-    const { usersDB } = data;
-    console.log(usersDB);
-
-    renderListToRoot(usersDB)
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 function renderListToRoot(arrayToList) {
   try {
     const root = document.querySelector(".root");
@@ -165,27 +134,35 @@ function renderListToRoot(arrayToList) {
       html += `<li> ${element.username}'s email is: ${element.email}.</li>`;
     });
 
-    html += '</ol>'
+    html += "</ol>";
 
     root.innerHTML = html;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
+function handleAddSiblings(event) {
+  event.preventDefault();
+  const email1 = event.target.elements.email1.value;
+  const email2 = event.target.elements.email2.value;
+
+  //to make it faster created wrong route. good route will include the logged in user id with params
+  //@ts-ignore
+  axios
+    .post("/api/users/add-sibling", { email1, email2 })
+    .than(({data}) => console.log(data + "ok"))
+    .catch((err) => console.error(err));
+}
+
+async function handleSearchSiblingsByUsername(event) {
+  try {
+    event.preventDefault()
+    const username = event.target.elements.usernameToSearch.value
+
+    const {data} = await axios.post("/api/users/search-sibling-by-username", {username})
+    console.log(data)
   } catch (error) {
     console.error(error)
   }
 }
-
-
-
-// async function handleSearchUsername(event) {
-//   try {
-//     const userSearch = event.target.value;
-//     //@ts-ignore
-//     const {data} = await axios.post("/api/users/search", {userSearch});
-//     console.log(data)
-//     const {usersDB} = data
-//     const root = document.querySelector(".root");
-//     root.innerHTML = `${usersDB[0].username}`
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
