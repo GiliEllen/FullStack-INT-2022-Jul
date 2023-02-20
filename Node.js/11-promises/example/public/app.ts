@@ -148,22 +148,66 @@ function handleAddSiblings(event) {
   const email2 = event.target.elements.email2.value;
 
   //to make it faster created wrong route. good route will include the logged in user id with params
+  console.log("this is before the promise");
   //@ts-ignore
   axios
     .post("/api/users/add-sibling", { email1, email2 })
-    .than(({data}) => console.log(data + "ok"))
+    .than(({ data }) => console.log(data + "ok"))
     .catch((err) => console.error(err));
+
+  console.log("this is after the promise");
 }
 
 async function handleSearchSiblingsByUsername(event) {
   try {
-    event.preventDefault()
-    const username = event.target.elements.usernameToSearch.value
+    event.preventDefault();
+    const username = event.target.elements.usernameToSearch.value;
 
-    const {data} = await axios.post("/api/users/search-sibling-by-username", {username})
-    console.log(data)
+    const { data } = await axios.post("/api/users/search-sibling-by-username", {
+      username,
+    });
+    console.log(data);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
+let promise = new Promise(function (resolve, reject) {
+  // the function is executed automatically when the promise is constructed
+
+  // after 1 second signal that the job is done with the result "done"
+  setTimeout(() => resolve("done"), 1000);
+});
+
+let promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error("Whoops!")), 1000);
+});
+
+// .catch(f) is the same as promise.then(null, f)
+promise.catch(alert); // shows "Error: Whoops!" after 1 second
+
+
+
+
+function loadScript(src) {
+  return new Promise(function (resolve, reject) {
+    let script = document.createElement("script");
+    script.src = src;
+
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+    document.head.append(script);
+  });
+}
+//              return promise -> pending -> resolved or reject
+let promise3 = loadScript(
+  "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"
+);
+
+promise3.then(
+  (script) => alert(`${script.src} is loaded!`),
+  (error) => alert(`Error: ${error.message}`)
+);
+
+promise.then((script) => alert("continue work..."));

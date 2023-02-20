@@ -12,6 +12,11 @@ const mongodb_uri = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 
 // future implementation
+
+app.use(express.json());
+app.use(express.static("public"));
+app.use(cookieParser());
+
 mongoose.set("strictQuery", true);
 
 mongoose
@@ -24,12 +29,11 @@ mongoose
     console.error(err.message);
   });
 
-app.use(express.json());
-app.use(express.static("public"));
-app.use(cookieParser());
+  // import accessRoutes from "./API/access/accessRoutes";
+  // app.use("/api/access", logger, accessRoutes)
 
-import usersRoutes from "./API/users/usersRoutes";
-app.use("/api/users", logger, usersRoutes);
+  import usersRoutes from "./API/users/usersRoutes";
+  app.use("/api/users", logger, usersRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is active on port : ${PORT}`);

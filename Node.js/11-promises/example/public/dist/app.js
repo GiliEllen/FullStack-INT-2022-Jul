@@ -280,6 +280,7 @@ function handleAddSiblings(event) {
     var email1 = event.target.elements.email1.value;
     var email2 = event.target.elements.email2.value;
     //to make it faster created wrong route. good route will include the logged in user id with params
+    console.log("this is before the promise");
     //@ts-ignore
     axios
         .post("/api/users/add-sibling", { email1: email1, email2: email2 })
@@ -287,6 +288,7 @@ function handleAddSiblings(event) {
         var data = _a.data;
         return console.log(data + "ok");
     })["catch"](function (err) { return console.error(err); });
+    console.log("this is after the promise");
 }
 function handleSearchSiblingsByUsername(event) {
     return __awaiter(this, void 0, void 0, function () {
@@ -297,7 +299,9 @@ function handleSearchSiblingsByUsername(event) {
                     _a.trys.push([0, 2, , 3]);
                     event.preventDefault();
                     username = event.target.elements.usernameToSearch.value;
-                    return [4 /*yield*/, axios.post("/api/users/search-sibling-by-username", { username: username })];
+                    return [4 /*yield*/, axios.post("/api/users/search-sibling-by-username", {
+                            username: username
+                        })];
                 case 1:
                     data = (_a.sent()).data;
                     console.log(data);
@@ -311,3 +315,26 @@ function handleSearchSiblingsByUsername(event) {
         });
     });
 }
+var promise = new Promise(function (resolve, reject) {
+    // the function is executed automatically when the promise is constructed
+    // after 1 second signal that the job is done with the result "done"
+    setTimeout(function () { return resolve("done"); }, 1000);
+});
+var promise2 = new Promise(function (resolve, reject) {
+    setTimeout(function () { return reject(new Error("Whoops!")); }, 1000);
+});
+// .catch(f) is the same as promise.then(null, f)
+promise["catch"](alert); // shows "Error: Whoops!" after 1 second
+function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = src;
+        script.onload = function () { return resolve(script); };
+        script.onerror = function () { return reject(new Error("Script load error for " + src)); };
+        document.head.append(script);
+    });
+}
+//              return promise -> pending -> resolved or reject
+var promise3 = loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js");
+promise3.then(function (script) { return alert(script.src + " is loaded!"); }, function (error) { return alert("Error: " + error.message); });
+promise.then(function (script) { return alert("continue work..."); });

@@ -39,9 +39,9 @@ export const checkAccess = async (
     if (!UA) throw new Error("Couldn't find UA from cookies");
 
     const decodedUserAccess = jwt.decode(UA, secret);
-    const { role } = decodedUserAccess;
-
+    const {role}  = decodedUserAccess; //"viewer"
     if (!role) throw new Error(`no role for this user, access denied`);
+    
     if (role === "viewer") {
       console.log("access allowed");
       next();

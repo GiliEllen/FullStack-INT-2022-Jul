@@ -93,7 +93,7 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, userDB, isMatch, cookie, secret, cookie2, JWTCookie2, JWTCookie, error_2;
+        var _a, email, password, userDB, isMatch, role, cookie, secret, cookie2, JWTCookie2, JWTCookie, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -113,6 +113,7 @@ function login(req, res) {
                     isMatch = _b.sent();
                     if (!isMatch)
                         throw new Error("Email or password do not match");
+                    role = "";
                     cookie = { userId: userDB._id };
                     secret = process.env.JWT_SECRET;
                     if (!secret)
@@ -121,7 +122,7 @@ function login(req, res) {
                     JWTCookie2 = jwt_simple_1["default"].encode(cookie2, secret);
                     JWTCookie = jwt_simple_1["default"].encode(cookie, secret);
                     res.cookie("userID", JWTCookie);
-                    res.cookie("UA", JWTCookie2);
+                    res.cookie("UA", JWTCookie2); // UA = user access
                     res.send({ login: true, userDB: userDB });
                     return [3 /*break*/, 4];
                 case 3:
@@ -342,6 +343,12 @@ function createTwoUsersAndAddSiblings(req, res) {
                         ])];
                 case 1:
                     _b = _d.sent(), userDB1 = _b[0], userDB2 = _b[1];
+                    // const [groupByUserID, groupBySiblingID] = await Promise.all([
+                    //   UserSibilingModel.find({ 'sibling.email': email1 }),
+                    //   UserSibilingModel.find({ 'sibling.email': email2 }),
+                    // ]);
+                    // const userDB1 = await  UserModel.findOne({ email: email1 });
+                    // const userDB2 = await  UserModel.findOne({ email: email2 });
                     userDB1.sibling = userDB2;
                     userDB2.sibling = userDB1;
                     return [4 /*yield*/, Promise.all([
@@ -350,7 +357,7 @@ function createTwoUsersAndAddSiblings(req, res) {
                         ])];
                 case 2:
                     _c = _d.sent(), userDB1WithSibling = _c[0], userDB2WithSibling = _c[1];
-                    res.status(201).send({ ok: true });
+                    res.send({ ok: true });
                     return [2 /*return*/];
             }
         });

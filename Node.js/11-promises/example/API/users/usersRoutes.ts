@@ -21,9 +21,9 @@ router
   .get("", helloMiddleware, checkAccess, getAllUsers)
   .get("/get-user-by-cookie", getUser)
   .get("/logout", logout)
-  .get("/:id", getUserById)
-  .post("/login", helloMiddleware, login)
-  .post("/register", register)
-  .post("/search/:category", searchDB);
+  .get("/:id",checkAccess, getUserById)
+  .post("/login", checkAccess, login) //no cookie of role
+  .post("/register", register) // no cookie role
+  .post("/search/:category", checkAccess, searchDB);
 
 export default router;

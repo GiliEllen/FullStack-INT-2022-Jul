@@ -2,7 +2,7 @@ import express from "express";
 import UserModel, { UserValidation } from "./userModel";
 import bcrypt from "bcrypt";
 import jwt from "jwt-simple";
-import UserProductModel from './../../../../08-JWT-ans-local-storage/example/API/user_products/userProductsModel';
+import UserProductModel from "./../../../../08-JWT-ans-local-storage/example/API/user_products/userProductsModel";
 const saltRounds = 10;
 
 export async function register(req: express.Request, res: express.Response) {
@@ -32,12 +32,12 @@ export async function register(req: express.Request, res: express.Response) {
 
     const JWTCookie = jwt.encode(cookie, secret);
 
-    const cookie2 = {role: "viewer"}
-    const JWTCookie2 = jwt.encode(cookie2, secret)
+    const cookie2 = { role: "viewer" };
+    const JWTCookie2 = jwt.encode(cookie2, secret);
 
     if (userDB) {
       res.cookie("userID", JWTCookie);
-      res.cookie("UA", JWTCookie2)
+      res.cookie("UA", JWTCookie2);
       res.send({ register: true, userDB });
     } else {
       res.send({ register: false });
@@ -59,20 +59,25 @@ export async function login(req: express.Request, res: express.Response) {
 
     const isMatch = await bcrypt.compare(password, userDB.password);
     if (!isMatch) throw new Error("Email or password do not match");
+    let role = "";
+    // if (userDB.role === "viewer") {
+    //   role = "viewer";
+    // } else if (userDB.role === "admin") {
+    //   role = admin;
+    // }
 
     //sending cookie
     const cookie = { userId: userDB._id };
     const secret = process.env.JWT_SECRET;
     if (!secret) throw new Error("Couldn't load secret from .env");
 
-    const cookie2 = {role: "viewer"}
-    const JWTCookie2 = jwt.encode(cookie2, secret)
-
+    const cookie2 = { role: "viewer" };
+    const JWTCookie2 = jwt.encode(cookie2, secret);
 
     const JWTCookie = jwt.encode(cookie, secret);
 
     res.cookie("userID", JWTCookie);
-    res.cookie("UA", JWTCookie2)
+    res.cookie("UA", JWTCookie2); // UA = user access
     res.send({ login: true, userDB });
   } catch (error) {
     res.send({ error: error.message });
@@ -197,20 +202,33 @@ export async function createTwoUsersAndAddSiblings(req, res) {
   const { email1, email2 } = req.body;
   if (!email1 || !email2)
     throw new Error("Couldn't get all fields from req.body");
-
+  // start as two promises
   const [userDB1, userDB2] = await Promise.all([
     UserModel.findOne({ email: email1 }),
     UserModel.findOne({ email: email2 }),
   ]);
 
+  // const [groupByUserID, groupBySiblingID] = await Promise.all([
+  //   UserSibilingModel.find({ 'sibling.email': email1 }),
+  //   UserSibilingModel.find({ 'sibling.email': email2 }),
+  // ]);
+
+
+  // const userDB1 = await  UserModel.findOne({ email: email1 });
+  // const userDB2 = await  UserModel.findOne({ email: email2 });
+
   userDB1.sibling = userDB2;
   userDB2.sibling = userDB1;
+
+  // await userDB1.save()
+  // await userDB2.save()
+
   const [userDB1WithSibling, userDB2WithSibling] = await Promise.all([
     userDB1.save(),
     userDB2.save(),
   ]);
 
-  res.status(201).send({ ok: true });
+  res.send({ ok: true });
 }
 
 export async function searchUsereBySiblingName(req, res) {
@@ -224,4 +242,3 @@ export async function searchUsereBySiblingName(req, res) {
     res.status;
   }
 }
-

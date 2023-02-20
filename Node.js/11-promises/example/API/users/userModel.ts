@@ -1,32 +1,47 @@
 import mongoose from "mongoose";
-import Joi from 'joi';
-import { joiPasswordExtendCore } from 'joi-password';
+import Joi from "joi";
+import { joiPasswordExtendCore } from "joi-password";
 
 const joiPassword = Joi.extend(joiPasswordExtendCore);
-
 
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    requierd: [true, "user must have email"]
+    requierd: [true, "user must have email"],
   },
   username: {
     type: String,
-    required: true
+    required: true,
   },
   password: String,
-  sibling: Object
+  sibling: {
+    email: {
+      type: String,
+      unique: true,
+      requierd: [true, "user must have email"],
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    password: String,
+  },
 });
+
+// const UserSiblingSchema = new mongoose.Schema({
+//   userId: String,
+//   siblingId: String,
+// });
 
 const UserModel = mongoose.model("users", UserSchema);
 
 export default UserModel;
 
-export const UserValidation = Joi.object({  
-email: Joi.string().email().required(),
-username: Joi.string().alphanum().min(3).max(16).required(),
-password: joiPassword
+export const UserValidation = Joi.object({
+  email: Joi.string().email().required(),
+  username: Joi.string().alphanum().min(3).max(16).required(),
+  password: joiPassword
     .string()
     .min(6)
     .max(16)
@@ -36,4 +51,5 @@ password: joiPassword
     // .minOfNumeric(1)
     // .noWhiteSpaces()
     .required(),
-repeatPassword: Joi.ref('password')});
+  repeatPassword: Joi.ref("password"),
+});

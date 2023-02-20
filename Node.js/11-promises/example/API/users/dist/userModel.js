@@ -16,8 +16,23 @@ var UserSchema = new mongoose_1["default"].Schema({
         required: true
     },
     password: String,
-    sibling: Object
+    sibling: {
+        email: {
+            type: String,
+            unique: true,
+            requierd: [true, "user must have email"]
+        },
+        username: {
+            type: String,
+            required: true
+        },
+        password: String
+    }
 });
+// const UserSiblingSchema = new mongoose.Schema({
+//   userId: String,
+//   siblingId: String,
+// });
 var UserModel = mongoose_1["default"].model("users", UserSchema);
 exports["default"] = UserModel;
 exports.UserValidation = joi_1["default"].object({
@@ -33,5 +48,5 @@ exports.UserValidation = joi_1["default"].object({
         // .minOfNumeric(1)
         // .noWhiteSpaces()
         .required(),
-    repeatPassword: joi_1["default"].ref('password')
+    repeatPassword: joi_1["default"].ref("password")
 });

@@ -14,6 +14,9 @@ dotenv_1.default.config();
 const mongodb_uri = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 // future implementation
+exports.app.use(express_1.default.json());
+exports.app.use(express_1.default.static("public"));
+exports.app.use(cookie_parser_1.default());
 mongoose_1.default.set("strictQuery", true);
 mongoose_1.default
     .connect(mongodb_uri)
@@ -24,9 +27,8 @@ mongoose_1.default
     console.log("At mongoose.connect:");
     console.error(err.message);
 });
-exports.app.use(express_1.default.json());
-exports.app.use(express_1.default.static("public"));
-exports.app.use(cookie_parser_1.default());
+// import accessRoutes from "./API/access/accessRoutes";
+// app.use("/api/access", logger, accessRoutes)
 const usersRoutes_1 = __importDefault(require("./API/users/usersRoutes"));
 exports.app.use("/api/users", middlewares_1.logger, usersRoutes_1.default);
 exports.app.listen(PORT, () => {
