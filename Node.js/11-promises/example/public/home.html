@@ -32,6 +32,13 @@
         <input type="text" placeholder="Email 2" id="email2">
         <button>Make Siblings</button>
     </form>
+
+    <button onclick="handlegetAllUsers()">Get ALL Users</button>
+
+    <form onsubmit="getUserById(event)">
+        <input placeholder="email" type="text" name="userId">
+        <input type="submit" name="" value="Get User By ID">
+    </form>
     
     <div class="root"></div>
 </body>

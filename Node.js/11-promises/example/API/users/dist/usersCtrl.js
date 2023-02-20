@@ -43,7 +43,7 @@ var jwt_simple_1 = require("jwt-simple");
 var saltRounds = 10;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, username, password, repeatPassword, error, salt, hash, userDB, cookie, secret, JWTCookie, error_1;
+        var _a, email, username, password, repeatPassword, error, salt, hash, userDB, cookie, secret, JWTCookie, cookie2, JWTCookie2, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -70,8 +70,11 @@ function register(req, res) {
                     if (!secret)
                         throw new Error("Couldn't load secret from .env");
                     JWTCookie = jwt_simple_1["default"].encode(cookie, secret);
+                    cookie2 = { role: "viewer" };
+                    JWTCookie2 = jwt_simple_1["default"].encode(cookie2, secret);
                     if (userDB) {
                         res.cookie("userID", JWTCookie);
+                        res.cookie("UA", JWTCookie2);
                         res.send({ register: true, userDB: userDB });
                     }
                     else {
@@ -90,7 +93,7 @@ function register(req, res) {
 exports.register = register;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, userDB, isMatch, cookie, secret, JWTCookie, error_2;
+        var _a, email, password, userDB, isMatch, cookie, secret, cookie2, JWTCookie2, JWTCookie, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -114,8 +117,11 @@ function login(req, res) {
                     secret = process.env.JWT_SECRET;
                     if (!secret)
                         throw new Error("Couldn't load secret from .env");
+                    cookie2 = { role: "viewer" };
+                    JWTCookie2 = jwt_simple_1["default"].encode(cookie2, secret);
                     JWTCookie = jwt_simple_1["default"].encode(cookie, secret);
                     res.cookie("userID", JWTCookie);
+                    res.cookie("UA", JWTCookie2);
                     res.send({ login: true, userDB: userDB });
                     return [3 /*break*/, 4];
                 case 3:
@@ -133,6 +139,7 @@ function logout(req, res) {
         return __generator(this, function (_a) {
             try {
                 res.clearCookie("userID");
+                res.clearCookie("UA");
                 res.send({ logout: true });
             }
             catch (error) {

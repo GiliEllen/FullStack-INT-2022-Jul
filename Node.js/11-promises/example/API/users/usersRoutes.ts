@@ -6,20 +6,24 @@ import {
   getUserById,
   getUser,
   logout,
-  searchDB
+  searchDB,
 } from "./usersCtrl";
+import { checkAccess, helloMiddleware } from "../middleware/middlewares";
 
 const router = express.Router();
 
+router.param("id", (req, res, next, val) => {
+  console.log(`userId is: ${val}`);
+  next();
+});
+
 router
-  // "/api/user"
-  .get("", getAllUsers)
+  .get("", helloMiddleware, checkAccess, getAllUsers)
   .get("/get-user-by-cookie", getUser)
   .get("/logout", logout)
   .get("/:id", getUserById)
-  .post("/login", login)
+  .post("/login", helloMiddleware, login)
   .post("/register", register)
-  // .post("/search", searchDB)
-  .post("/search/:category", searchDB)
+  .post("/search/:category", searchDB);
 
 export default router;

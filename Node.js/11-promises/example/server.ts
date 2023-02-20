@@ -2,8 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import {logger, checkAccess} from "./API/middleware/middlewares"
 
-const app = express();
+export const app = express();
 
 dotenv.config();
 
@@ -28,7 +29,7 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 import usersRoutes from "./API/users/usersRoutes";
-app.use("/api/users", usersRoutes);
+app.use("/api/users", logger, usersRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is active on port : ${PORT}`);

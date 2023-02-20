@@ -32,8 +32,12 @@ export async function register(req: express.Request, res: express.Response) {
 
     const JWTCookie = jwt.encode(cookie, secret);
 
+    const cookie2 = {role: "viewer"}
+    const JWTCookie2 = jwt.encode(cookie2, secret)
+
     if (userDB) {
       res.cookie("userID", JWTCookie);
+      res.cookie("UA", JWTCookie2)
       res.send({ register: true, userDB });
     } else {
       res.send({ register: false });
@@ -61,9 +65,14 @@ export async function login(req: express.Request, res: express.Response) {
     const secret = process.env.JWT_SECRET;
     if (!secret) throw new Error("Couldn't load secret from .env");
 
+    const cookie2 = {role: "viewer"}
+    const JWTCookie2 = jwt.encode(cookie2, secret)
+
+
     const JWTCookie = jwt.encode(cookie, secret);
 
     res.cookie("userID", JWTCookie);
+    res.cookie("UA", JWTCookie2)
     res.send({ login: true, userDB });
   } catch (error) {
     res.send({ error: error.message });
@@ -73,6 +82,7 @@ export async function login(req: express.Request, res: express.Response) {
 export async function logout(req, res) {
   try {
     res.clearCookie("userID");
+    res.clearCookie("UA");
     res.send({ logout: true });
   } catch (error: any) {
     res.status(500).send({ error: error.message });
