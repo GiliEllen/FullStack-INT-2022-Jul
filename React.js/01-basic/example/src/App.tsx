@@ -4,6 +4,8 @@ import "./App.css";
 import Counter from "./components/Counter/Counter/Counter";
 import CounterClass from "./components/CounterClass/CounterClass";
 
+
+
 function App() {
   return (
     <div className="App">
@@ -12,7 +14,7 @@ function App() {
       <p>
         this is class Component:
       </p>
-      <CounterClass/>
+      <CounterClass />
     </div>
   );
 }
