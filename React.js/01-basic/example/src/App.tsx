@@ -5,6 +5,7 @@ import Counter from "./components/Counter/Counter/Counter";
 import CounterClass from "./components/CounterClass/CounterClass";
 import { Clock } from "./components/clock/Clock";
 import { render } from "@testing-library/react";
+import Birthday from './components/birthday/Birthday';
 
 function App() {
   const [timeInterval, setTimeInterval] = useState<Date>();
@@ -20,6 +21,7 @@ function App() {
       <Counter />
       <p>this is class Component:</p>
       <CounterClass />
+      <Birthday/>
       <Clock date={new Date()} />
     </div>
   );
