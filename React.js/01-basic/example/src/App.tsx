@@ -53,9 +53,10 @@ function App() {
 
   async function handleGetJokes() {
     try {
-      const {data} = await axios.get('https://dog.ceo/api/breeds/image/random/10');
-      const {message} = data;
-      setImageArray(message)
+      const {data} = await axios.get('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist&amount=5');
+      // const {message} = data;
+      console.log(data)
+      // setImageArray(message)
     } catch (error) {
       console.error(error)
     }
