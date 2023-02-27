@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const ColourPicker = () => {
-  const [colour, setColour] = useState('black');
+  const [colour, setColour] = useState<string>('black');
 
   function handlePickColour(event:any) {
     setColour(event.target.value)
@@ -9,8 +9,7 @@ const ColourPicker = () => {
   return (
     <div>
       <input type="color" id="colourPicker" onChange={handlePickColour}/>
-      <div
-        style={{
+      <div style={{
           backgroundColor: colour,
           height: "100px",
           width: "100px",

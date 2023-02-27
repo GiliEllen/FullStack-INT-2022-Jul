@@ -1,0 +1,5 @@
+task 1
+6 squares on the screen // 4
+when clicked, changes color; only the clicked square
+// 1. random from array of colours - simple
+// 2. completly random colour - intemidient
