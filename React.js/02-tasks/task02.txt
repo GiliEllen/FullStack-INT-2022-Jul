@@ -1,0 +1,9 @@
+//task 02
+1. followup - create user card
+write a small user array
+render user cards that say hello to each user full name
+
+2. create array of questions and answers
+render the questionson click - reveal answer
+
+{question: 'how much is 2 +2?', answer: '4'}
