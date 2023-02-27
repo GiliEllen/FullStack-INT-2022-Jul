@@ -1,0 +1,12 @@
+task 3
+
+write a get request to dog api
+https://dog.ceo/dog-api/documentation/random
+user enters number etween 1-50 - and gets this amount of dog images
+input:text
+range
+select
+
+user enters breed name
+if exists - gets one random image of that breed
+if !exist writes on dom - "cannot find Breed"

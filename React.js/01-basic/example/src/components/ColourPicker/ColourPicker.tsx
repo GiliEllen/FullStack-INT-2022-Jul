@@ -10,7 +10,7 @@ const ColourPicker = () => {
     <div>
       <input type="color" id="colourPicker" onChange={handlePickColour}/>
       <div style={{
-          backgroundColor: 'rgb()',
+          backgroundColor: colour,
           height: "100px",
           width: "100px",
           borderRadius: "50%",

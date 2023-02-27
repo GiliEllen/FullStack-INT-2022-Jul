@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 
 interface CardProps {
-  src?: string;
-  firstName: string;
-  age: number;
+    src: string;
 }
 
 // const Card = (props:any) => {
@@ -15,11 +13,10 @@ interface CardProps {
 //   )
 // }
 
-const Card: FC<CardProps> = ({ firstName, age }) => {
+const Card: FC<CardProps> = ({ src }) => {
   return (
     <div>
-      <h3>{firstName}</h3>
-      <p>{age}</p>
+      <img src={src} alt="" />
     </div>
   );
 };
