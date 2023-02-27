@@ -23,7 +23,7 @@ function Birthday() {
   );
 }
 
-// export default Birthday
+export default Birthday;
 
 //BAD EXAMPLE
 // const currentYear = new Date().getFullYear();
@@ -46,4 +46,4 @@ function Birthday() {
 //   );
 // }
 
-export default Birthday;
+// export default Birthday;
