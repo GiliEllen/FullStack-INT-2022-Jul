@@ -6,17 +6,27 @@ import axios from "axios";
 function App() {
   const [imageArray, setImageArray] = useState([]);
 
-  async function handleGetJokes() {
-    try {
-      const { data } = await axios.get(
-        "https://dog.ceo/api/breeds/image/random/3"
-      );
+  // async function handleGetJokes() {
+  //   try {
+  //     const { data } = await axios.get(
+  //       "https://dog.ceo/api/breeds/image/random/3"
+  //     );
+  //     const { message } = data;
+  //     setImageArray(message);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  function handleGetJokes() {
+    axios.get("https://dog.ceo/api/breeds/image/random/3").then(({data})=> {
       const { message } = data;
       setImageArray(message);
-    } catch (error) {
-      console.error(error);
-    }
+    }).catch(({error})=> {
+      console.error(error)
+    })
   }
+
   return (
     <div>
       <button onClick={handleGetJokes}>GET JOKES</button>
