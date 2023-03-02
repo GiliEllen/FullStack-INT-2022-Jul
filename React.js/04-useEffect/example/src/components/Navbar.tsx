@@ -21,7 +21,7 @@ const Navbar = () => {
   useEffect(() => {
     console.log("on resource change");
     handleGetResource()
-  }, []);
+  }, [resourceType]);
 
   return (
     <>
