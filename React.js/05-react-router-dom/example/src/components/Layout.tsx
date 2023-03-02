@@ -1,6 +1,6 @@
 
 import { Link, Outlet } from 'react-router-dom';
-
+// Link = a
 function Layout() {
     return (
       <div>
