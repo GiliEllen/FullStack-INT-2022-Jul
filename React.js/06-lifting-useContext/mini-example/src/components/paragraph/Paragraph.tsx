@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
 
-const Paragraph = () => {
+interface ParagraphProps {
+  user?: string
+}
+
+const Paragraph:FC<ParagraphProps> = ({user}) => {
   //   const [userEmail, setUserEmail] = useState();
   //   useEffect(() => {
   //     getUser();
@@ -21,7 +25,7 @@ const Paragraph = () => {
   return (
     <div>
       {/* {userEmail} */}
-      <p>hello from Paragraph</p>
+      <p>hello from Paragraph {user}</p>
     </div>
   );
 };

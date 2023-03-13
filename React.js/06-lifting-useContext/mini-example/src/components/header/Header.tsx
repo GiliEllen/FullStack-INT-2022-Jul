@@ -1,28 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Paragraph from './../paragraph/Paragraph';
 
-const Header = () => {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    getUser();
-  }, []);
+interface HeaderProps {
+  user?: string
+}
 
-  async function getUser() {
-    try {
-      const { data } = await axios.get(
-        "https://jsonplaceholder.typicode.com/users/1"
-      );
-      console.log(data);
-      setUser(data.name);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+const Header:FC<HeaderProps> = ({user}) => {
+ 
   return (
     <div className="header">
       <h3>hello from header to user {user}</h3>
-      <Paragraph/>
+      <Paragraph user={user}/>
     </div>
   );
 };

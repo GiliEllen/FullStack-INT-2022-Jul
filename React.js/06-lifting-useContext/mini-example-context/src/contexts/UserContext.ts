@@ -1,8 +1,7 @@
 import { createContext } from "react";
-import axios from "axios";
+
 
 export const UserContext = createContext<any>(null);
-
 
 // let user
 
@@ -17,3 +16,4 @@ export const UserContext = createContext<any>(null);
 //     console.error(error);
 //   }
 // }
+

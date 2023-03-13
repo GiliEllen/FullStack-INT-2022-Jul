@@ -1,6 +1,11 @@
+import { FC } from "react";
 import Header from "../header/Header";
 
-const Title = () => {
+interface TitleProps {
+  user?: string
+}
+
+const Title:FC<TitleProps> = ({user}) => {
   return (
     <div className="title">
       <h2>hello from title</h2>
