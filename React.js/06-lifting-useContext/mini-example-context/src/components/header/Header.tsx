@@ -4,7 +4,7 @@ import Paragraph from "../paragraph/Paragraph";
 import { UserContext } from "../../contexts/UserContext";
 
 const Header = () => {
-  const {user, setUser} = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   if(user) {
     return (
