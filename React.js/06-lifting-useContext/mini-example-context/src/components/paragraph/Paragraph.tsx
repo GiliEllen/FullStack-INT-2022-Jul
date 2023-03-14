@@ -3,22 +3,22 @@ import axios from "axios";
 import { UserContext } from './../../contexts/UserContext';
 
 const Paragraph = () => {
-  const {user} = useContext(UserContext)
+  // const {user} = useContext(UserContext)
 
-  if(user) {
-    return (
-      <div>
-        {user.email}
-        <p>hello from Paragraph!</p>
-      </div>
-    );
-  } else {
+  // if(user) {
+  //   return (
+  //     <div>
+  //       {user.email}
+  //       <p>hello from Paragraph!</p>
+  //     </div>
+  //   );
+  // } else {
     return (
       <div>
         <p>hello from Paragraph</p>
       </div>
     );
-  }
+  // }
  
 };
 

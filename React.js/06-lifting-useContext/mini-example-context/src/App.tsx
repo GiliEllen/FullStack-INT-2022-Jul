@@ -7,7 +7,7 @@ import axios from "axios";
 import Paragraph from "./components/paragraph/Paragraph";
 
 function App() {
-  const [user, setUser] = useState<any>()
+  const [user, setUser] = useState<any>();
   useEffect(() => {
     getUser();
   }, []);
@@ -17,7 +17,7 @@ function App() {
       const { data } = await axios.get(
         "https://jsonplaceholder.typicode.com/users/1"
       );
-      setUser(data)
+      setUser(data);
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -25,7 +25,7 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{ user, setUser }}>
       <Routes>
         <Route path="/" element={<Card />} />
         <Route path="/no-user-needed" element={<Paragraph />} />
