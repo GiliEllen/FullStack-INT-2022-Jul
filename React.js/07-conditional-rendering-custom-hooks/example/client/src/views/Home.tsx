@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Feed from "../components/Feed";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
-import useAxiosFetch from "../hooks/useGet";
+import useGet from "../hooks/useGet";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
-  const { data, fetchError, isLoading } = useAxiosFetch(
+  const { data, fetchError, isLoading } = useGet(
     "https://jsonplaceholder.typicode.com/posts"
   );
 
