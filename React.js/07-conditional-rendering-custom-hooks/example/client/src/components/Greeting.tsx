@@ -4,6 +4,10 @@ import { UserContext } from "./../contexts/UserContext";
 const Greeting = () => {
   const { user, setUser } = useContext(UserContext);
 
+  function check() {
+
+  }
+
   return (
     <div>
       <h1>Greetings!</h1>

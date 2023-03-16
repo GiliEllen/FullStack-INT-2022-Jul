@@ -1,29 +1,10 @@
 import { useState, useEffect } from "react";
+import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 export default function StatusBar() {
-  const [isOnline, setIsOnline] = useState(true);
-  useEffect(() => {
-    function handleOnline() {
-      setIsOnline(true);
-    }
-    function handleOffline() {
-      setIsOnline(false);
-    }
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-  function handleToggleNetwork() {
-    setIsOnline(!isOnline)
-  }
+const isOnline = useOnlineStatus()
 
   return (
-    <>
-    <button onClick={handleToggleNetwork}>Toggle</button>
       <h1>{isOnline ? "✅ Online" : "❌ Disconnected"}</h1>
-    </>
   );
 }
