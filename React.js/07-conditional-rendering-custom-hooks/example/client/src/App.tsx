@@ -11,6 +11,7 @@ import Login from "./views/login/Login";
 import { UserContext } from "./contexts/UserContext";
 import { getUserFromCookies } from "./helpers/helpers";
 import Greeting from "./components/Greeting";
+import LogoutButton from "./components/LogoutButton";
 
 function App() {
   const [user, setUser] = useState<any>();
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
+      <LogoutButton/>
       <Greeting/>
       <Routes>
         <Route path="*" element={<Page404 />} />
