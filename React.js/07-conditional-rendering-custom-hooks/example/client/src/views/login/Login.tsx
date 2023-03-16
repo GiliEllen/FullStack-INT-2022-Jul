@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import axios from 'axios';
 import { UserContext } from './../../contexts/UserContext';
 import { useNavigate } from "react-router-dom";
+import useGet from "../../hooks/useGet";
+
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -10,7 +12,8 @@ const Login = () => {
   const {user, setUser} = useContext(UserContext)
   const navigate = useNavigate()
 
-  // setUser()
+
+
 
   async function handleSubmit(ev:any) {
     try {
@@ -48,6 +51,8 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+      {/* {response ? <img src={response.message} alt="" />: null } */}
+      
     </div>
   );
 };
