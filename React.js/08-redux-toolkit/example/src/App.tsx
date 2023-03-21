@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Input />
+        <Input /> 
         <Output />
       </header>
     </div>
