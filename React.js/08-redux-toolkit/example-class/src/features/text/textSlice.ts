@@ -3,10 +3,12 @@ import { RootState } from "../../app/store";
 
 export interface TextState {
   value: string;
+  status: ""
 }
 
 const initialState: TextState = {
   value: "",
+  status: ""
 };
 
 export const textSlice = createSlice({

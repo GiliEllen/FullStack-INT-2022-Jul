@@ -25,12 +25,12 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <Routes>
-        <Route path="/" element={<Card />} />
-        <Route path="/no-user-needed" element={<Paragraph />} />
-      </Routes>
-    </UserContext.Provider>
+        <UserContext.Provider value={{ user, setUser }}>
+          <Routes>
+            <Route path="/" element={<Card />} />
+            <Route path="/no-user-needed" element={<Paragraph />} />
+          </Routes>
+        </UserContext.Provider>
   );
 }
 
