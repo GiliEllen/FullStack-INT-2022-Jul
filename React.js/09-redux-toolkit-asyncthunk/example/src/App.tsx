@@ -13,6 +13,7 @@ function App() {
   useEffect(() => {
     dispatch(getUserFakeApi())
   },[])
+  
   return (
     <div className="App">
       <p>This is the user: {user? <p>{user.name}</p> : <p>no user yet</p>}</p>
