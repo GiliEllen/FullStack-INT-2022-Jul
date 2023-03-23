@@ -1,28 +1,48 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User } from './userModel';
+import { User } from "./userModel";
 
 export const getUserByCookie = createAsyncThunk(
-    'get-user-by-cookie',
-    async(_, thunkApi) => {
-        try {
-            const { data } = await axios.get("/api/users/get-user-by-cookie");
-            if(!data) throw new Error("Couldn't receive data from axios GET '/get-user-by-cookie' from: userAPI ");
-            const { userDB } = data;
-            return userDB;            
-        } catch (error:any) {
-            console.error(error);
-            return thunkApi.rejectWithValue({
-                error: error.message,
-                message: error.message,
-              });
-        }
+  "get-user-by-cookie",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await axios.get("/api/users/get-user-by-cookie");
+      if (!data)
+        throw new Error(
+          "Couldn't receive data from axios GET '/get-user-by-cookie' from: userAPI "
+        ); //{userDB: userDB}
+      const { userDB } = data;
+      return userDB;
+    } catch (error: any) {
+      console.error(error);
+      return thunkApi.rejectWithValue({
+        error: error.message,
+        message: error.message,
+      });
     }
-)
+  }
+);
+
+// export const getUserByCookie = createAsyncThunk(
+//     'get-user-by-cookie',
+//     async() => {
+//         try {
+//             const { data } = await axios.get("/api/users/get-user-by-cookie");
+//             if(!data) throw new Error("Couldn't receive data from axios GET '/get-user-by-cookie' from: userAPI "); //{userDB: userDB}
+//             const { userDB } = data;
+//             return userDB;
+//         } catch (error:any) {
+//             console.error(error);
+//         }
+//     }
+// )
+
+
+//dispatch(updateUser({object}))
 
 // export const updateUser = createAsyncThunk(
 //     'update-user',
-//     async({ user }: { user: User }) => {
+//     async({ user }: { user: User }) => { //always send object!!
 //         try {
 //             console.log(user)
 //             const {data} = await axios.post("/api/users/update-all-user-information", {user});

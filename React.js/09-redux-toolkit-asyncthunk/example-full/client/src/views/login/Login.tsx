@@ -14,10 +14,10 @@ const Login = () => {
     try {
         ev.preventDefault();
         const {data} = await axios.post("/api/users/login", {email, password})
-        console.log(data)
+        console.log(data) // data : {login: true, userDB}
         if (data.login){
           // setUser(data.userDB)
-          navigate("/")
+          navigate("/home")
         }
     } catch (error) {
         console.error(error)

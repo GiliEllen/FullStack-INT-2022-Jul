@@ -43,7 +43,7 @@ export async function login(req: express.Request, res: express.Response) {
     if (!email || !password)
       throw new Error("Couldn't get all fields from req.body");
 
-    const userDB = await UserModel.findOne({ email });
+    const userDB = await UserModel.findOne({ email }); // userDB: {email: gili@gili.com, password: dfjkghfudhgvukzdfhgvz}
     if (!userDB) throw new Error("User with that email can't be found");
     if (!userDB.password) throw new Error("No password in DB");
 
@@ -56,7 +56,7 @@ export async function login(req: express.Request, res: express.Response) {
     if (!secret) throw new Error("Couldn't load secret from .env");
 
     const JWTCookie = jwt.encode(cookie, secret);
-
+    userDB.password = undefined //not on DB: userDB: {email: gili@gili.com, password: undefiend}
     res.cookie("userID", JWTCookie);
     res.send({ login: true, userDB });
   } catch (error) {
@@ -87,7 +87,6 @@ export async function getUser(req: express.Request, res: express.Response) {
     const userDB = await UserModel.findById(userId);
     if (!userDB)
       throw new Error(`Couldn't find user id with the id: ${userId}`);
-    console.log(userDB)
     userDB.password = undefined;
     res.send({ userDB });
   } catch (error) {

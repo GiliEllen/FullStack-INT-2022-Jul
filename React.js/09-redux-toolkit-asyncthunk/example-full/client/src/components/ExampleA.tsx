@@ -4,9 +4,14 @@ import { userSelector } from '../features/user/userSlice'
 
 const ExampleA = () => {
     const user = useAppSelector(userSelector)
-  return (
-    <div>{user!.email}</div>
-  )
+  if (user) {
+    return (
+    <div>{user.email}</div>
+  )} else {
+    return (
+      <div>no user</div>
+    )
+  }
 }
 
 export default ExampleA

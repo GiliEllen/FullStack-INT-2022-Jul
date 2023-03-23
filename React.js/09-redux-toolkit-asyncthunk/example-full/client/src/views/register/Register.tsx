@@ -16,7 +16,7 @@ const Register = () => {
         password,
       });
       console.log(data);
-      if (data.ok) {
+      if (data.register) {
         // setUser(data.userDB)
         navigate("/");
       }
