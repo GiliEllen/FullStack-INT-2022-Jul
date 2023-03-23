@@ -10,9 +10,6 @@ const Login = () => {
   const [password, setPassword] = useState();
   const navigate = useNavigate()
 
-
-
-
   async function handleSubmit(ev:any) {
     try {
         ev.preventDefault();

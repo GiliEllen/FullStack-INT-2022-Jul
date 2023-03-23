@@ -15,18 +15,28 @@ import LogoutButton from "./components/LogoutButton";
 
 function App() {
   const [user, setUser] = useState<any>();
-  const navigate = useNavigate()
-  useEffect(() => {
-    getUserFromCookies(setUser);
-    if (!user) {
-      navigate("/login")
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   getUserFromCookies(setUser);
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
+
+  // }, []);
+
+  const checkTrue = () => {
+    if(user) {
+      //varios checks
+      return true
+    } else {
+      return false
     }
-  }, []);
+  }
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <LogoutButton/>
-      <Greeting/>
+      {user ? <LogoutButton /> : "no log out if not connected"}
+      <Greeting />
       <Routes>
         <Route path="*" element={<Page404 />} />
         <Route path="/login" element={<Login />} />
