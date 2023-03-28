@@ -9,8 +9,13 @@ const MessageContainer = () => {
         console.log(message)
       setMessageList(prevState => [...prevState, message]);
     }); 
+    socket.on('welcome', (message) => {
+        console.log(message)
+      setMessageList(prevState => [...prevState, message]);
+    })
 
     return () => {
+        socket.off("welcome")
         socket.off("send_message")
     }
   }, []);

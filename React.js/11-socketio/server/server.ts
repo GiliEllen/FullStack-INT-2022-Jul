@@ -38,11 +38,12 @@ const io = new Server(httpServer, {
   }
 });
 
-httpServer.listen(4000);
+httpServer.listen(4000); // PORT
 
 io.on("connection", (socket) => {
   console.log(socket.id); 
-  socket.on("send_message", async (message) => {
+  socket.emit('welcome', {message: "Welcome!"})
+  socket.on("send_message", (message) => {
     console.log(message)
     io.sockets.emit("send_message", message);
   })
