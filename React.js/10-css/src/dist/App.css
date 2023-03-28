@@ -1,8 +1,7 @@
-
 :root {
-  --blue:  rgb(44, 32, 214);
-  --backgroundColor:  rgb(160, 158, 182);
-  --mainDivColor:  rgb(74, 65, 179);
+  --blue: rgb(44, 32, 214);
+  --backgroundColor: rgb(160, 158, 182);
+  --mainDivColor: rgb(74, 65, 179);
 }
 
 .App {
@@ -19,7 +18,6 @@
     animation: App-logo-float infinite 3s ease-in-out;
   }
 }
-
 .App-header {
   min-height: 100vh;
   display: flex;
@@ -30,7 +28,7 @@
 }
 
 .App-link {
-  color: rgb(112, 76, 182);
+  color: #704cb6;
 }
 
 @keyframes App-logo-float {

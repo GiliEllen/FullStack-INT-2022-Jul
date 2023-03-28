@@ -9,20 +9,17 @@
 .grid-container > div {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-<<<<<<< HEAD
   padding: 20px 0;
   font-size: 30px;
 }
 
-.item1 {
-  grid-area: 1/1/3/3;
+.item5 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-column: 1/3;
+  grid-area: 4/2/5/4;
 }
 
-=======
-  padding: 20px;
-  font-size: 30px;
-}
->>>>>>> 62eda7de0e86057bc66d7dc846fc047e4c508867
 .box {
   height: 50px;
   width: 50px;
@@ -35,4 +32,24 @@
   width: 200px;
   background-color: cadetblue;
   display: none;
+}
+
+html {
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.container {
+  font-size: 30px;
+  width: 50vw;
+  height: 250px;
+  border: 1px solid black;
+}
+.container__test {
+  font-size: 0.5em;
+  width: 80%;
+  border: 2px solid red;
 }
