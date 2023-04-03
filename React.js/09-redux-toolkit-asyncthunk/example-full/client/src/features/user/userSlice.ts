@@ -35,6 +35,7 @@ export const userSlice = createSlice({
       .addCase(getUserByCookie.rejected, (state) => {
         state.status = Status.FAILED;
       })
+
   },
 });
 

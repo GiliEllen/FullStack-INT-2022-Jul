@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAppSelector } from '../app/hooks'
 import { userSelector } from '../features/user/userSlice'
 
 const ExampleA = () => {
     const user = useAppSelector(userSelector)
+    
   if (user) {
     return (
     <div>{user.email}</div>

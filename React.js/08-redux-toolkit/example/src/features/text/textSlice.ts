@@ -1,27 +1,32 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 
 export interface TextState {
-  text: string;
-  status: 'idle' | 'loading' | 'failed';
+  value: string;
+  status: "idle" | "loading" | "failed";
 }
 
+// const [text, setText] = useState("write somthing here")
+
 const initialState: TextState = {
-  text: "",
-  status: 'idle',
+  value: "",
+  status: "idle",
 };
 
 export const textSlice = createSlice({
-  name: 'text',
+  name: "text",
   initialState,
   reducers: {
     changeText: (state, action) => {
-        state.text = action.payload
-    } //action
+      state.value = action.payload;
+    }, //action
+    resetText: (state) => {
+      state.value = ""
+    }
   },
 });
 
-export const { changeText } = textSlice.actions;
-export const textSelector = (state:RootState) => state.text.text
+export const { changeText, resetText } = textSlice.actions;
+export const textSelector = (state: RootState) => state.text.value;
 
 export default textSlice.reducer;

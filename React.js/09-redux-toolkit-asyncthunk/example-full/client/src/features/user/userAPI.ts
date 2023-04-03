@@ -40,17 +40,17 @@ export const getUserByCookie = createAsyncThunk(
 
 //dispatch(updateUser({object}))
 
-// export const updateUser = createAsyncThunk(
-//     'update-user',
-//     async({ user }: { user: User }) => { //always send object!!
-//         try {
-//             console.log(user)
-//             const {data} = await axios.post("/api/users/update-all-user-information", {user});
-//             if(!data) throw new Error("could not receive data from axios POST '/update-user' from: userAPI")
-//             const {result} = data;
-//             return result[0]
-//         } catch (error) {
-//             console.error(error)
-//         }
-//     }
-// )
+export const updateUser = createAsyncThunk(
+    'update-user-avatar',
+    async({ user }: { user: User }) => { //always send object!!
+        try {
+            console.log(user)
+            const {data} = await axios.post("/api/users/update-all-user-information", {user});
+            if(!data) throw new Error("could not receive data from axios POST '/update-user' from: userAPI")
+            const {result} = data;
+            return result[0]
+        } catch (error) {
+            console.error(error)
+        }
+    }
+)

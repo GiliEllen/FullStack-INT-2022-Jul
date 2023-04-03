@@ -7,7 +7,6 @@ import { userSelector } from "../../features/user/userSlice";
 const Home = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(userSelector); // user = null or empty
-
   useEffect(() => {
     dispatch(getUserByCookie());
   }, []);
