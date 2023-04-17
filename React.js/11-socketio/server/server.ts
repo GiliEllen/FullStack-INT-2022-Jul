@@ -11,7 +11,7 @@ const app = express();
 dotenv.config();
 
 const mongodb_uri = process.env.MONGO_URI;
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
 const httpServer = createServer();
 
 // future implementation
@@ -46,6 +46,7 @@ io.on("connection", (socket) => {
   socket.on("send_message", (message) => {
     console.log(message)
     io.sockets.emit("send_message", message);
+    // socket.to(socketId).emit("send_message", message)
   })
 });
 
