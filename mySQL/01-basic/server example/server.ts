@@ -1,6 +1,4 @@
 import express from "express";
-import http from "http";
-import mysql from "mysql";
 import connection from "./DB/database";
 
 const cookieParser = require("cookie-parser");
@@ -14,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.post("/api/create-database", (req, res) => {
-  const query = "CREATE DATABASE testDB;";
+  const query = "CREATE DATABASE gili;";
   connection.query(query, (err, results, fields) => {
     try {
       if (err) throw err;
