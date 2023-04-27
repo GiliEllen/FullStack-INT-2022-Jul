@@ -345,7 +345,7 @@ function handleInsert() {
 async function insertMovie(movie) {
   //@ts-ignore
   const { data } = await axios.post(
-    "http://localhost:4000/api/inser-into-movies",
+    "http://localhost:4000/api/insert-into-movies",
     {
       title: movie.title,
       year: movie.year,

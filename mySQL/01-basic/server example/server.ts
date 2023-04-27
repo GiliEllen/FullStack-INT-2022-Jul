@@ -25,9 +25,8 @@ app.post("/api/create-database", (req, res) => {
     }
   });
 });
-app.post("/api/inser-into-movies", (req, res) => {
+app.post("/api/insert-into-movies", (req, res) => {
   const { title, year, runtime, director, actors, plot, posterUrl } = req.body;
-  console.log(title, year, runtime, director, actors, plot, posterUrl);
   const query = `INSERT INTO blockbuster.movies (title, year, runtime, director, actors, plot, posterUrl) VALUES ("${title}", ${year}, ${runtime}, "${director}", "${actors}", "${plot}", "${posterUrl}");`;
   connection.query(query, (err, results, fields) => {
     try {
