@@ -60,6 +60,7 @@ app.post("/api/register", (req: express.Request, res: express.Response) => {
 
         const secret = process.env.JWT_SECRET;
         if (!secret) throw new Error("Coudln't load secret from .env");
+        //@ts-ignore
         const cookie = { userID: results.insertId };
         const JWTCookie = jwt.encode(cookie, secret);
 
