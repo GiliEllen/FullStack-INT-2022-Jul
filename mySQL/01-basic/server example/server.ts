@@ -125,6 +125,9 @@ app.get("/api/users/get-all-users", (req, res) => {
   }
 })
 
+import bbRoutes from "./API/blockbuster/bbRoutes";
+app.use("/api/bb", bbRoutes)
+
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
