@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../features/user/userSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 
 
@@ -9,6 +11,15 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  
+  async function handleLogout() {
+    const {data} = await axios.get("/api/users/logout")
+    if (data.logout) {
+      dispatch(logout())
+      navigate("/")
+    }
+  }
 
   async function handleSubmit(ev:any) {
     try {
