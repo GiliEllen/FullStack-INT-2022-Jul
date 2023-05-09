@@ -39,7 +39,19 @@ function App() {
       <div>
         <legend>SVG background</legend>
         <div>
-        <input className="nosubmit" type="search" placeholder="Search..."/>
+          <input className="nosubmit" type="search" placeholder="Search..." />
+        </div>
+      </div>
+
+      <div>
+        <legend>React-icons</legend>
+        <div className="input-react-icons">
+          <FaSistrix />
+          <input
+            className="input-react-icons__input"
+            type="text"
+            placeholder="Search!"
+          />
         </div>
       </div>
     </div>
