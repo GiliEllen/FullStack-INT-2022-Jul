@@ -20,8 +20,9 @@ try {
 
                         //@ts-ignore
                         const dress_id = results2.insertId;
+                        
                         const query3 = `INSERT INTO inventory (dress_id, size_id, amount) VALUES ?`;
-                        connection.query(query3, [dressSizeArray], function(err) {
+                        connection.query(query3, dressSizeArray, function(err) {
                             if (err) throw err;
                             res.send({ok: true, message: "Dress And Sizes Added successFully"})
                         })
