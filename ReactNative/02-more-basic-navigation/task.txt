@@ -1,0 +1,2 @@
+create a button that onPress shows a modal screen
+on the modal screen there is another button that closes the modal
