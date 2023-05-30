@@ -1,2 +1,7 @@
 create a button that onPress shows a modal screen
 on the modal screen there is another button that closes the modal
+
+harder: add Pressable instead of button in both cases
+on long press: change color of button to random color
+
+extra hard: render list with flatList

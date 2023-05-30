@@ -1,9 +1,10 @@
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { GestureResponderEvent } from "react-native";
 
 interface BigButtonProps {
   title: string;
-  onPress: any;
+  onPress: (event: GestureResponderEvent) => void;
 }
 
 const BigButton: FC<BigButtonProps> = ({ title, onPress }) => {

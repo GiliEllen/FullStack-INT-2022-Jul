@@ -23,6 +23,14 @@ export default function App() {
   function close() {
     setVisbile(false);
   }
+
+  function renderItem(itemData: any) {
+    return (
+      <View>
+        <Text>{itemData.item.title}</Text>
+      </View>
+    );
+  }
   return (
     <>
       <StatusBar style="dark" />
@@ -31,11 +39,7 @@ export default function App() {
         <FlatList
           keyExtractor={(item) => item.id}
           data={CATEGORIES}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{item.title}</Text>
-            </View>
-          )}
+          renderItem={renderItem}
         />
         <Button title={"close"} onPress={close} />
       </Modal>
