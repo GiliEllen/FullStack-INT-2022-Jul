@@ -1,48 +1,43 @@
 // This is full code for App.js
-import React from 'react';
-import { Button, View, Text } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createStackNavigator} from '@react-navigation/stack';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { Button, View, Text } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-     let iconName;
-     if (route.name === 'TabA') {
-        iconName = focused
-        ? 'ios-information-circle'
-        : 'ios-information-circle-outline';
-      } else if (route.name === 'TabB') {
-        iconName = focused
-        ? 'ios-list-outline'
-        : 'ios-list';
-      }
-return <Ionicons name={iconName} size={size} color={color}     />;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === "TabA") {
+            iconName = focused
+              ? "ios-information-circle"
+              : "ios-information-circle-outline";
+          } else if (route.name === "TabB") {
+            iconName = focused ? "ios-list-outline" : "ios-list";
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
       optionsScreen={{
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
+        activeTintColor: "tomato",
+        inactiveTintColor: "gray",
       }}
     >
-        <Tab.Screen name="TabA" component={TabAScreen} />
-        <Tab.Screen name="TabB" component={TabBScreen} />
+      <Tab.Screen name="TabA" component={TabAScreen} />
+      <Tab.Screen name="TabB" component={TabBScreen} />
     </Tab.Navigator>
   );
 }
 function NotificationsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>No New Notifications!</Text>
-      <Button 
-      onPress={() => navigation.goBack()}
-      title="Go back home"
-      />
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
     </View>
   );
 }
@@ -55,32 +50,28 @@ function TabAScreen() {
     </Stack.Navigator>
   );
 }
-function TabADetailsScreen({navigation}) {
+function TabADetailsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
-      <Text>
-        Welcome to TabA page!
-      </Text>
-      <Button 
-      onPress={() => navigation.navigate('TabA Details')}
-      title="Go to TabA Details"
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Welcome to TabA page!</Text>
+      <Button
+        onPress={() => navigation.navigate("TabA Details")}
+        title="Go to TabA Details"
       />
     </View>
   );
 }
 function Details() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
-      <Text>
-        TabA Details here!
-      </Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>TabA Details here!</Text>
     </View>
   );
 }
 function TabBScreen() {
   return (
     <View>
-      <Text style={{textAlign: 'center', marginTop: 300}}>
+      <Text style={{ textAlign: "center", marginTop: 300 }}>
         Welcome to TabB page!
       </Text>
     </View>
@@ -95,5 +86,5 @@ export default function App() {
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
-  )
+  );
 }
