@@ -1,0 +1,4 @@
+1. followup
+2. Create Text Input and submit button
+when user dubmit breed name random image apears
+if no breed - random image / no image and message No Breed

@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
 export default function App() {
-  const [dogUrl, setDogUrl] = useState("");
-  const handleGetRandomDog = async () => {
+  const [dogUrl, setDogUrl] = useState<string>("");
+
+  const handleGetDogUrl = async () => {
     try {
       const { data } = await axios.get(
         "https://dog.ceo/api/breeds/image/random"
       );
-      if (!data) throw new Error("no data");
+      if (!data || data.status !== "success")
+        throw new Error("No data on function handleGetDogUrl in FILe App.tsx");
       setDogUrl(data.message);
     } catch (error) {
       console.error(error);
@@ -18,36 +20,39 @@ export default function App() {
   };
 
   useEffect(() => {
-    handleGetRandomDog()
-  }, [])
-  
+    handleGetDogUrl()
+  },[])
+
   return (
     <View style={styles.container}>
       {dogUrl ? (
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: dogUrl }} />
           <Text>Dog!</Text>
+          <Image style={styles.image} source={{uri: dogUrl}} />
         </View>
       ) : (
-        <Text>No Dog</Text>
+        <View>
+          <Text>No Dog!</Text>
+        </View>
       )}
+      <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30, 
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 50
   },
   imageContainer: {
     flex: 1
   },
   image: {
     width: 300,
-    height: 300,
-  },
+    height: 300
+  }
 });
