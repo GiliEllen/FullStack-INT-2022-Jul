@@ -1,14 +1,13 @@
-import { Text, View } from 'react-native'
-import React, { Component } from 'react'
+import { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Platform, Alert } from "react-native";
+import { Pedometer } from "expo-sensors";
 
-export class Home extends Component {
-  render() {
-    return (
-      <View>
-        <Text>Home</Text>
-      </View>
-    )
-  }
+export default function Home() {
+  
+  return (
+    <View>
+      <Text>hello</Text>
+      <Text>This is home of app</Text>
+    </View>
+  );
 }
-
-export default Home
