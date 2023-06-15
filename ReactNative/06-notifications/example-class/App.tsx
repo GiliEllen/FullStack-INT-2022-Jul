@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View, Alert } from "react-native";
+import { Button, StyleSheet, Text, View, Alert, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -15,6 +16,8 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+  const [token, setToken] = useState("ExponentPushToken[YOUR TOKEN HERE]");
+
   const schedualNotificationHandler = () => {
     Notifications.scheduleNotificationAsync({
       content: {
@@ -61,11 +64,36 @@ export default function App() {
             "Premission is required",
             "push Notification need premission"
           );
+          return;
         }
-        return;
+
+        if (Platform.OS === "android") {
+          Notifications.setNotificationChannelAsync("default", {
+            name: "default",
+            importance: Notifications.AndroidImportance.DEFAULT,
+          });
+        }
+
+        const pushTokenData = await Notifications.getExpoPushTokenAsync();
+        console.log(pushTokenData); // <-- save to database // device
+        setToken(pushTokenData.data);
       }
+
+      configurePushNotifications();
     }
   }, []);
+
+  async function sendPushNotificationHandler() {
+    try {
+      const { data } = await axios.post(
+        "https://exp.host/--/api/v2/push/send",
+        { to: token, title: "Test from device", body: "this is test" },
+        { headers: { "Content-Type": "application/json" } }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -73,6 +101,7 @@ export default function App() {
         title="Sechdual Notification"
         onPress={schedualNotificationHandler}
       ></Button>
+      <Button title="Push" onPress={sendPushNotificationHandler}></Button>
       <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
