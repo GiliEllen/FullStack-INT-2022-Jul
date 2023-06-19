@@ -32,6 +32,14 @@
         {
           "cameraPermission": "Allow New Camera App to access your camera."
         }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow New Camera App to access your photos.",
+          "savePhotosPermission": "Allow New Camera App to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
       ]
     ]
   }
