@@ -8,6 +8,8 @@ const Login = () => {
     const [password, setPassword] = useState()
     const [loading, setLoading] = useState(false);
 
+    const [timeArray, setTimeArray] = useState([])
+
     const navigate = useNavigate();
 
     async function handleSubmit(event:any) {
@@ -23,6 +25,7 @@ const Login = () => {
           navigate("/home")
         }
     }
+
 
   return (
     <div className="container mt-4">
@@ -73,6 +76,9 @@ const Login = () => {
                     setPassword(ev.target.value);
                   }}
                 />
+                <select>
+                  {timeArray.map((time) => {return <option value={time}>{time}</option>})}
+                </select>
               </div>
               <button
               disabled={loading}
