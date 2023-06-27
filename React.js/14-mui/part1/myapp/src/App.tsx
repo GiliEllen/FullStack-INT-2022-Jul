@@ -8,6 +8,7 @@ import { Box, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import TextInputComp from "./components/TextInputComp";
 import SignInSide from "./components/SignInSide";
+import RadioButton from "./components/RadioButton";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       {/* <TypographyComp/> */}
       {/* <ButtonsComp /> */}
       {/* <SignInSide/> */}
+      <RadioButton/>
     </div>
   );
 }

@@ -21,7 +21,6 @@ const SelectCom = () => {
   return (
     <>
       <Box mt={5} width={"250px"}>
-        {dates.map((item) => {return <div>{item}</div>})}
         <TextField
           label="Select Class"
           select
