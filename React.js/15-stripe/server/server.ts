@@ -24,7 +24,7 @@ app.post("/api/checkout", async (req, res) => {
   try {
     const { cart } = req.body;
     if (!cart) throw new Error("no cart from body");
-
+    //@ts-ignore
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
