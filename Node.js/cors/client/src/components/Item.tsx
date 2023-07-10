@@ -6,9 +6,13 @@ const Item = ({ product, handleAddToCart, setProducts }: any) => {
   const [item, setItem] = useState("");
 
   const handleSavePrice = async () => {
-    const { data } = await axios.patch(`${SERVER_URL}/products/${product.id}`, {item});
-    console.log(data);
-    setProducts(data.products)
+    try {
+      const { data } = await axios.patch(`${SERVER_URL}/products/${product.id}`, {item});
+      console.log(data);
+      setProducts(data.products)
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   return (

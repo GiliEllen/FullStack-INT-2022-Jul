@@ -10,22 +10,32 @@ dotenv.config();
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
 
+let environment = "DEV"
+
+let URL;
+
+if (environment == "PROD") {
+  URL = "http://products-client.onrender.com"
+} else {
+  URL = "http://localhost:3000"
+}
+
 // var corsOptions = {
 //   origin: 'http://example.com',
-//   optionsSuccessStatus: 200 
+//   optionsSuccessStatus: 200
 // }
 
 app.use(express.json());
-// app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: URL }));
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
-//   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-//   res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-//   next();
-// });
+app.use((req, res, next) => {
+  // res.header('Access-Control-Allow-Origin', '*'); //The same
+  res.setHeader("Access-Control-Allow-Origin", "*"); //the same
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,PATCH");
+  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  next();
+});
 
 app.get("/orders", (req, res) => {
   console.log("Returning orders");
@@ -36,6 +46,7 @@ app.get("/orders", (req, res) => {
 app.get("/products", (req, res) => {
   res.send({ products });
 });
+
 app.patch(`/products/:id`, (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -46,7 +57,7 @@ app.patch(`/products/:id`, (req, res) => {
     });
     if (idx == -1) throw Error("no idx");
 
-    products[idx].price = item * 100
+    products[idx].price = item * 100;
 
     res.send({ products });
   } catch (error) {
