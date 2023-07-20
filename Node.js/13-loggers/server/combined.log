@@ -1,0 +1,3 @@
+{"level":"info","message":"task by type","service":"user-service"}
+{"level":"error","message":"ON /tasks: Error!","service":"user-service"}
+{"level":"info","message":"task by type!","service":"user-service"}
