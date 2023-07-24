@@ -22,7 +22,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 // var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
 app.use(express.json());
-app.use(cors({ origin: "https://image-gili.onrender.com" }));
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: accessLogStream }))
 
@@ -112,8 +112,9 @@ app.get("/categories", async (req, res) => {
 });
 app.get("/products/:id", async (req, res) => {
   try {
-    const {id} = req.params
-    const productDB = await ProductModel.findById(id);
+    const { id } = req.params;
+    const productDB = await ProductModel.findById(id).populate("category");
+    if (!productDB) throw new Error("no product found");
     res.status(201).send({ ok: true, productDB });
   } catch (error) {
     res.send({ error: error.message });
