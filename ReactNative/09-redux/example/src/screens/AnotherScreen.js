@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 
 
 const AnotherScreen = () => {
-    const count = useSelector((store) => store.count.count);
+
+  const count = useSelector((store) => store.count.count);
+
   return (
     <View style={styles.mt}>
       <Text>AnotherScreen: {count}</Text>

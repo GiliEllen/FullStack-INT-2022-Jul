@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
  
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from '../redux/actions/countAction';
+import { increment, decrement } from '../redux/counter/actions/countAction';
  
 export default function Home() {
   const dispatch = useDispatch();

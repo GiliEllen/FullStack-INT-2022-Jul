@@ -11,6 +11,7 @@ export default function App() {
   const handleClick = () => {
     setDisp(!disp)
   }
+  
   return (
     <Provider store={store}>
       {disp ? <Home /> : <AnotherScreen />}
