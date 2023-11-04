@@ -16,7 +16,7 @@ export interface UserState {
 
 const initialState: UserState = {
   value: null,
-  status: Status.IDLE,
+  status: Status.IDLE
 };
 
 export const userSlice = createSlice({
@@ -25,12 +25,12 @@ export const userSlice = createSlice({
   reducers: {
     logout:(state) => {
       state.value = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUserByCookie.pending, (state) => {
-        state.status = Status.LOADING;
+        state.status = Status.LOADING; 
       })
       .addCase(getUserByCookie.fulfilled, (state, action) => {
         state.status = Status.IDLE;
@@ -39,6 +39,7 @@ export const userSlice = createSlice({
       .addCase(getUserByCookie.rejected, (state) => {
         state.status = Status.FAILED;
       })
+      
 
   },
 });
@@ -48,5 +49,6 @@ export const {logout} = userSlice.actions
 
 export const userSelector = (state: RootState) => state.user.value;
 export const userStatusSelector = (state: RootState) => state.user.status;
+export const userInformationSelector = (state:RootState) => state.user
 
 export default userSlice.reducer;

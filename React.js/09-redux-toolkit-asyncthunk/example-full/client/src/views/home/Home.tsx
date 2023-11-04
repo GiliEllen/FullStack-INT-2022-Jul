@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getUserByCookie } from "../../features/user/userAPI";
-import { userSelector } from "../../features/user/userSlice";
+import { userInformationSelector, userSelector } from "../../features/user/userSlice";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(userSelector); // user = null or empty
+  const userInfornation = useAppSelector(userInformationSelector)
   useEffect(() => {
     dispatch(getUserByCookie());
   }, []);
